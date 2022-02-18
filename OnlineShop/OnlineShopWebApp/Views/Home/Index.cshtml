@@ -1,0 +1,83 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-3" style="text-align: left">
+            <div class="row justify-content-end">
+                <div class="col-9" style="padding: 0px 0px 0px 5px; margin-top: 5px">
+                    <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" name="searchWord" value="@ViewBag.SearchWord" />
+                </div>
+                <div class="col-2 d-inline-block" style="padding: 0px 0px 0px 5px" data-toggle="tooltip" title="Начать поиск">
+                    <button class="btn btn-primary" type="submit" asp-controller="Home" asp-action="Filtering"><i class="bi bi-search"></i></button>
+                </div>
+            </div><br /><br />
+            <div><b><u>Настройте фильтры поиска:</u></b></div><br />
+            <div><b>Выберите город:</b></div>
+            @foreach (var city in ViewBag.AllWorkLocations)
+            {
+                <div>
+                    <input class="work-location" type="checkbox" value="@city" name="locations" />@city
+                </div>
+            }
+            <div style="padding-top: 10px"><b>Укажите минимальную стоимость:</b></div>
+            <div class="row">
+                <div class="col-6" style="text-align: left; padding: 0px">@ViewBag.MinCost</div>
+                <div class="col-6" style="text-align: right; padding: 0px">@ViewBag.MaxCost</div>
+            </div>
+            <input style="width: inherit; padding: 0px" type="range" name="minCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MinCost" />
+            <div style="padding-top: 10px"><b>Укажите максимальную стоимость:</b></div>
+            <div class="row">
+                <div class="col-6" style="text-align: left; padding: 0px">@ViewBag.MinCost</div>
+                <div class="col-6" style="text-align: right; padding: 0px">@ViewBag.MaxCost</div>
+            </div>
+            <input style="width: inherit; padding: 0px 0px 20px 0px" type="range" name="maxCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MaxCost" />
+            <div class="row justify-content-center">
+                <div style="text-align: center">
+                    <button class="btn btn-primary" type="submit" asp-controller="Home" asp-action="Filtering">Применить</button>
+                </div>&nbsp;
+                <div style="text-align: center">
+                    <button class="btn btn-danger" disabled asp-controller="Home" asp-action="Index">Сбросить</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row justify-content-center" style="min-height: 140px">
+                @*В будущем здесь что-то будет!..*@
+            </div>
+            @if (Model.Count == 0)
+            {
+                <div class="row justify-content-center">
+                    В настоящий момент товары отсутствуют.
+                </div>
+            }
+            else
+            {
+                <div class="row justify-content-center">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-2 card shadow" style="text-align: center; border: 1px solid; padding: 0px; margin: 5px">
+                            <div style="text-align: right; padding: 5px 10px 5px 0px">
+                                @await Component.InvokeAsync("AddProductToComparison", product.Id)
+                            </div>
+                            <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
+                                <a style="color: black" href="~/product/index?productId=@product.Id">
+                                    <img class="card-img-top" src=@product.ImagePath height="100" />
+                                    <h5 class="card-title" style="margin-bottom: 5px">@product.Name</h5>
+                                    <p class="card-text" style="margin-bottom: 5px">@product.Cost руб.</p>
+                                </a>
+                            </div>
+                            <div style="margin-bottom: 10px">
+                                @await Component.InvokeAsync("AddProductToCart", product.Id)
+                                @await Component.InvokeAsync("AddProductToFavourites", product.Id)
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</form>

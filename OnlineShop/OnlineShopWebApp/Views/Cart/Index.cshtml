@@ -1,0 +1,123 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (Model.Items.Count == 0)
+{
+    <div class="container text-center">В настоящий момент ваша корзина пуста.</div>
+}
+else
+{
+    <table class="table" style="text-align: center">
+        <thead>
+            <tr scope="col">
+                <th>Имя мастера</th>
+                <th>Наименование услуги</th>
+                <th>Стоимость услуги</th>
+                <th>Количество услуг</th>
+                <th>Общая стоимость работы</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        <a href="~/product/index?productId=@item.Product.Id">@item.Product.Name</a>
+                    </td>
+                    <td>
+                        Изготовление велосипедной рамы
+                    </td>
+                    <td>
+                        <div style="text-align: center">
+                            @item.Product.Cost руб.
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-4 offset-1" style="text-align: right; margin-left: 8px">
+                                <a class="btn btn-warning" href="~/cart/decreaseAmount?productId=@item.Product.Id" role="button"><b>-</b></a>
+                            </div>
+                            <div class="col-2" style="text-align: center">
+                                @item.Amount
+                            </div>
+                            <div class="col-4" style="text-align: left; margin-left: 10px">
+                                <a class="btn btn-warning" href="~/cart/add?productId=@item.Product.Id" role="button"><b>+</b></a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@item.Cost руб.</td>
+                    <td>
+                        <span data-toggle="tooltip" title="Удалить позицию">
+                            <a class="btn btn-danger" href="#modal_form_@item.Product.Id" data-toggle="modal">
+                                <b>X</b>
+                            </a>
+                        </span>
+                        <div class="modal" id="modal_form_@item.Product.Id" tabindex="-1">
+                            <div class="modal-dialog modal-form">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Подтверждение действия</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Вы действительно хотите удалить товар <b>"@item.Product.Name"</b> из вашей корзины?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
+                                        <a class="btn btn-danger" href="~/cart/removePosition?productId=@item.Product.Id" role="button">
+                                            Да.
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-3 offset-7" style="text-align: right">
+            <b>Итоговая сумма:</b>
+        </div>
+        <div class="col-2" style="text-align: right">
+            <b>@Model.Cost руб.</b>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-3" style="text-align: left">
+            <a class="btn btn-primary" href="~/home/index" role="button">Продолжить покупки</a>
+        </div>
+        <div class="col-2 offset-5" style="text-align: center; padding-left: 8px">
+            <a class="btn btn-danger" href="#modal_cart_clear" data-toggle="modal">Очистить</a>
+            <div class="modal" id="modal_cart_clear" tabindex="-1">
+                <div class="modal-dialog modal-form">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Подтверждение действия</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>Вы действительно хотите очистить корзину?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
+                            <a class="btn btn-danger" href="~/cart/clear" role="button">
+                                Да.
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2" style="text-align: right">
+            <a class="btn btn-primary" href="~/order/index" role="button">Оформить заказ</a>
+        </div>
+    </div>
+}

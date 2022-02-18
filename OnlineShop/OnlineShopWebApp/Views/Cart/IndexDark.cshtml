@@ -1,0 +1,131 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (Model.Items.Count == 0)
+{
+    <div class="container glow-font-dark text-center">В настоящий момент ваша корзина пуста.</div>
+}
+else
+{
+<fieldset class="fieldset-table-dark">
+    <table class="table" style="text-align: center">
+        <thead class="glow-reference-dark">
+            <tr scope="col">
+                <th>Имя мастера</th>
+                <th>Наименование услуги</th>
+                <th>Стоимость услуги</th>
+                <th>Количество услуг</th>
+                <th>Общая стоимость работы</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        <a class="glow-reference-dark" href="~/product/index?productId=@item.Product.Id">@item.Product.Name</a>
+                    </td>
+                    <td class="glow-font-dark">
+                        Изготовление велосипедной рамы
+                    </td>
+                    <td class="glow-font-dark">
+                        <div style="text-align: center">
+                            @item.Product.Cost руб.
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-4 offset-1" style="text-align: right; margin-left: 8px">
+                                <a class="btn btn-primary btn-primary-glow-dark-modal" href="~/cart/decreaseAmount?productId=@item.Product.Id" role="button"><b>-</b></a>
+                            </div>
+                            <div class="col-2 glow-font-dark" style="text-align: center">
+                                @item.Amount
+                            </div>
+                            <div class="col-4" style="text-align: left; margin-left: 10px">
+                                <a class="btn btn-primary btn-primary-glow-dark-modal" href="~/cart/add?productId=@item.Product.Id" role="button"><b>+</b></a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="glow-font-dark">@item.Cost руб.</td>
+                    <td>
+                        <span data-toggle="tooltip" title="Удалить позицию">
+                            <a class="btn btn-dark" href="#modal_form_@item.Product.Id" data-toggle="modal">
+                                <b>X</b>
+                            </a>
+                        </span>
+                        <div class="modal" id="modal_form_@item.Product.Id" tabindex="-1">
+                            <div class="modal-dialog modal-form">
+                                <div class="modal-content modal-background-dark">
+                                    <div class="modal-header glow-font-dark">
+                                        <h5 class="modal-title">Подтверждение действия</h5>
+                                    </div>
+                                    <div class="modal-body glow-font-dark">
+                                        <p>Вы действительно хотите удалить товар <b>"@item.Product.Name"</b> из вашей корзины?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary btn-primary-glow-dark-modal" data-dismiss="modal">Нет!</button>
+                                        <a class="btn btn-warning btn-warning-glow-dark" href="~/cart/removePosition?productId=@item.Product.Id" role="button">
+                                            Да.
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</fieldset>
+    <br />
+    <br />
+    <br />
+    <div class="row glow-font-dark">
+        <div class="col-3 offset-7" style="text-align: right">
+            <b>Итоговая сумма:</b>
+        </div>
+        <div class="col-2" style="text-align: right">
+            <b>@Model.Cost руб.</b>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-3" style="text-align: left">
+            <a class="btn btn-primary btn-primary-glow-dark" href="~/home/index" role="button">Продолжить покупки</a>
+        </div>
+        <div class="col-2 offset-5" style="text-align: center; padding-left: 8px">
+            <a class="btn btn-dark" href="#modal_cart_clear" data-toggle="modal">Очистить</a>
+            <div class="modal" id="modal_cart_clear" tabindex="-1">
+                <div class="modal-dialog modal-form">
+                    <div class="modal-content modal-background-dark">
+                        <div class="modal-header glow-font-dark">
+                            <h5 class="modal-title">Подтверждение действия</h5>
+                        </div>
+                        <div class="modal-body glow-font-dark">
+                            <p>Вы действительно хотите очистить корзину?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-primary-glow-dark-modal" data-dismiss="modal">Нет!</button>
+                            <a class="btn btn-warning btn-warning-glow-dark" href="~/cart/clear" role="button">
+                                Да.
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2" style="text-align: right; overflow: hidden; padding: 15px; margin-top: -15px; margin-bottom: -15px">
+            <a class="btn btn-primary btn-primary-glow-dark" style="border-color: rgba(0, 0, 0, 0.0)" href="~/order/index" role="button">
+                <span class="button-line button-line-top"></span>
+                <span class="button-line button-line-right"></span>
+                <span class="button-line button-line-bottom"></span>
+                <span class="button-line button-line-left"></span>
+                Оформить заказ
+            </a>
+        </div>
+    </div>
+}

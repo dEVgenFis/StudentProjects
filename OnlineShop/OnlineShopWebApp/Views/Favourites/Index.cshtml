@@ -1,0 +1,60 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Favourites";
+}
+
+@if (Model.Count == 0)
+{
+    <div class="container text-center">В настоящий момент у вас отсутствуют избранные товары.</div>
+}
+else
+{
+    <div class="row justify-content-center">
+        @foreach (var product in Model)
+        {
+            <div class="card shadow" style="text-align: center; width: 145px; border: 1px solid; margin: 5px">
+                <div class="d-inline-block" data-toggle="tooltip" title="Удалить">
+                    <div style="text-align: right; padding: 0px 15px 0px 0px">
+                        <a style="color: red" href="~/favourites/removeproduct?productId=@product.Id"><b>X</b></a>
+                    </div>
+                </div>
+                <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
+                    <a style="color: black" href="~/product/index?productId=@product.Id">
+                        <img class="card-img-top" src=@product.ImagePath height="100" />
+                        <h5 class="card-title" style="margin-bottom: 5px">@product.Name</h5>
+                        <p class="card-text" style="margin-bottom: 5px">@product.Cost руб.</p>
+                    </a>
+                </div>
+                <div style="margin-bottom: 10px">
+                    @await Component.InvokeAsync("AddProductToComparison", product.Id)
+                    @await Component.InvokeAsync("AddProductToCart", product.Id)
+                </div>
+            </div>
+        }
+    </div>
+    <p></p>
+    <div class="row">
+        <p class="col" style="text-align: right">
+            <a class="btn btn-danger" href="#modal_favourites_clear" data-toggle="modal">Очистить</a>
+            <div class="modal" id="modal_favourites_clear" tabindex="-1">
+                <div class="modal-dialog modal-form" style="text-align: center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Подтверждение действия</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>Вы действительно хотите очистить список избранных товаров?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
+                            <a class="btn btn-danger" href="~/favourites/clear" role="button">
+                                Да.
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </p>
+    </div>
+}

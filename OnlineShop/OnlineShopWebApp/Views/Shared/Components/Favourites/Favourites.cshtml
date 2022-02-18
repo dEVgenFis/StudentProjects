@@ -1,0 +1,14 @@
+﻿@model int
+
+@if (Model == 0)
+{
+    <a class="btn btn-outline-danger" style="text-align: right" href="~/favourites/index">
+        <i class="bi bi-heart-fill"></i>
+    </a>
+}
+else
+{
+    <a class="btn btn-outline-danger" style="text-align: right" href="~/favourites/index">
+        <i class="bi bi-heart-fill"></i><sub><b>@Model</b></sub>
+    </a>
+}

@@ -1,0 +1,80 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = $"About {Model.UserId}";
+}
+
+<form method="post">
+    <div class="row">
+        @await Html.PartialAsync("AdminLeftMenu")
+        <div class="col-10">
+            <div style="text-align: start; padding-bottom: 10px">
+                <h3>Заказ пользователя @Model.UserId от @Model.CreationData, @Model.CreationTime</h3>
+            </div>
+            <p>
+                <div class="row">
+                    <div class="col-4" style="text-align: left">
+                        <b>Получатель:</b>
+                    </div>
+                    <div class="col-5" style="text-align: left">
+                        @Model.ClientContacts.FirstName @Model.ClientContacts.LastName
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-4" style="text-align: left">
+                        <b>Адрес доставки:</b>
+                    </div>
+                    <div class="col-6" style="text-align: left">
+                        г. @Model.DeliveryAddress.СityName, ул. @Model.DeliveryAddress.StreetName, д. № @Model.DeliveryAddress.HouseNumber, кв. № @Model.DeliveryAddress.FlatNumber
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-4" style="text-align: left">
+                        <b>Контактный телефон:</b>
+                    </div>
+                    <div class="col-5" style="text-align: left">
+                        @Model.ClientContacts.PhoneNumber
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-4" style="text-align: left">
+                        <b>Комментарий к заказу:</b>
+                    </div>
+                    <div class="col-5" style="text-align: left">
+                        @Model.Comment
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-4" style="text-align: left">
+                        <b>Сумма заказа:</b>
+                    </div>
+                    <div class="col-5" style="text-align: left">
+                        @Model.Cart.Cost
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-4" style="text-align: left">
+                        <b>Статус заказа:</b>
+                    </div>
+                    <div class="col-3" style="text-align: left">
+                        <select asp-for="Status" asp-items="@Html.GetEnumSelectList<OrderStatuses>()" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-4" style="text-align: left">
+                        <button class="btn btn-primary" type="submit" asp-controller="Admin" asp-action="UpdateOrdrerStatus" asp-route-orderId="@Model.Id">Обновить статус</button>
+                    </div>
+                </div>
+            </p>
+        </div>
+    </div>
+</form>

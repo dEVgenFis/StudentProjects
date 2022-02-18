@@ -1,0 +1,20 @@
+﻿@model Product
+
+@if (ViewBag.ExistsInCart == false)
+{
+    <span data-toggle="tooltip" title="Добавить в корзину">
+        <a class="btn btn-outline-warning" href="~/cart/add?productId=@Model.Id" role="button">
+            <i class="bi bi-cart4">+</i>
+        </a>
+    </span>
+}
+else
+{
+    <span data-toggle="tooltip" title="Товар в корзине">
+        <button type="button" class="btn btn-outline-warning" disabled>
+            <i class="bi bi-cart4">
+                <i class="bi bi-check2"></i>
+            </i>
+        </button>
+    </span>
+}

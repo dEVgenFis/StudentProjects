@@ -1,0 +1,82 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = $"About {Model.UserId}";
+}
+
+<form method="post">
+    <div class="row">
+        @await Html.PartialAsync("AdminLeftMenu")
+        <div class="col-10">
+            <div class="glow-font-dark" style="text-align: start; padding-bottom: 10px">
+                <h3>Заказ пользователя @Model.UserId от @Model.CreationData, @Model.CreationTime</h3>
+            </div>
+            <fieldset style="background-color: rgba(225, 239, 242, 0.7); padding: 5px; border-radius: 10px">
+                <p>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left">
+                            <span class="glow-reference-dark">Получатель:</span>
+                        </div>
+                        <div class="col-5 glow-font-dark" style="text-align: left">
+                            @Model.ClientContacts.FirstName @Model.ClientContacts.LastName
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left">
+                            <span class="glow-reference-dark">Адрес доставки:</span>
+                        </div>
+                        <div class="col-6 glow-font-dark" style="text-align: left">
+                            г. @Model.DeliveryAddress.СityName, ул. @Model.DeliveryAddress.StreetName, д. № @Model.DeliveryAddress.HouseNumber, кв. № @Model.DeliveryAddress.FlatNumber
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left">
+                            <span class="glow-reference-dark">Контактный телефон:</span>
+                        </div>
+                        <div class="col-5 glow-font-dark" style="text-align: left">
+                            @Model.ClientContacts.PhoneNumber
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left">
+                            <span class="glow-reference-dark">Комментарий к заказу:</span>
+                        </div>
+                        <div class="col-5 glow-font-dark" style="text-align: left">
+                            @Model.Comment
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left">
+                            <span class="glow-reference-dark">Сумма заказа:</span>
+                        </div>
+                        <div class="col-5 glow-font-dark" style="text-align: left">
+                            @Model.Cart.Cost
+                        </div>
+                    </div>
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left">
+                            <span class="glow-reference-dark">Статус заказа:</span>
+                        </div>
+                        <div class="col-3" style="text-align: left">
+                            <select asp-for="Status" asp-items="@Html.GetEnumSelectList<OrderStatuses>()" class="form-control">
+                            </select>
+                        </div>
+                        <div class="col-4" style="text-align: left">
+                            <button class="btn btn-primary btn-primary-glow-dark" type="submit" asp-controller="Admin" asp-action="UpdateOrdrerStatus" asp-route-orderId="@Model.Id">Обновить статус</button>
+                        </div>
+                    </div>
+                </p>
+            </fieldset>
+        </div>
+    </div>
+</form>

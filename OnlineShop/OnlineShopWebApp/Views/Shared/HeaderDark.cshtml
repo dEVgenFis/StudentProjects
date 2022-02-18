@@ -1,0 +1,25 @@
+﻿<header>
+    <nav class="header-dark navbar navbar-expand-sm box-shadow mb-3">
+        <div class="container">
+            <div style="text-align: left">
+                <a class="btn btn-primary btn-primary-glow-dark" href="~/home/index" role="button">На главную</a>
+                <a class="btn btn-primary btn-primary-glow-dark" href="~/account/login" role="button">Войти</a>
+                <a class="btn btn-light" href="~/admin/orders" role="button">Панель администратора</a>
+            </div>
+            <div style="text-align: right">
+                <div class="d-inline-block">
+                    @await Html.PartialAsync("UpdateTheme")
+                </div>
+                <div class="d-inline-block" data-toggle="tooltip" title="Сравнение">
+                    @await Component.InvokeAsync("Comparison")
+                </div>
+                <div class="d-inline-block" data-toggle="tooltip" title="Корзина">
+                    @await Component.InvokeAsync("Cart")
+                </div>
+                <div class="d-inline-block" data-toggle="tooltip" title="Избранное">
+                    @await Component.InvokeAsync("Favourites")
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

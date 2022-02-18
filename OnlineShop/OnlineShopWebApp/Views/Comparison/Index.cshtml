@@ -1,0 +1,108 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Comparison";
+}
+
+@if (Model.Count == 0)
+{
+    <div class="container text-center">В настоящий момент у вас отсутствуют товары для сравнения.</div><br />
+    <div class="container text-center">Обратите внимание: раздел Сравнение одновременно может содержать <b><i>не более</i></b> 4-х продуктов.</div>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 400px"></th>
+                @foreach (var product in Model)
+                {
+                    <td>
+                        <div class="card shadow" style="text-align: center; width: 145px; border: 1px solid; margin: 5px">
+                            <div class="card-body" style="padding-top: 5px; padding-bottom: 0px">
+                                <div class="row" style="border-bottom: 1px solid; border-color: darkgray">
+                                    <div class="col-5" style="text-align: left; padding: 2px 0px 0px 4px">
+                                        @await Component.InvokeAsync("AddProductToCartFromComparison", product.Id)
+                                    </div>
+                                    <div class="col-5" style="text-align: left; padding: 2px 0px 0px 0px">
+                                        @await Component.InvokeAsync("AddProductToFavouritesFromComparison", product.Id)
+                                    </div>
+                                    <div class="d-inline-block" data-toggle="tooltip" title="Удалить">
+                                        <div class="col-2" style="text-align: right; padding: 2px 4px 0px 0px">
+                                            <a style="color: red" href="~/comparison/removeproduct?productId=@product.Id"><b>X</b></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a style="color: black" href="~/product/index?productId=@product.Id">
+                                    <img class="card-img-top" style="padding-top: 10px" src=@product.ImagePath height="110" />
+                                    <h5 class="card-title" style="margin-top: 10px; margin-bottom: 10px">@product.Name</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th style="padding: 20px">
+                    <div style="text-align: justify">Стоимость услуги, руб.</div>
+                </th>
+                @foreach (var product in Model)
+                {
+                    <td style="text-align: center; padding: 20px; margin: 5px">
+                        @if (product.Cost == ViewBag.MinCost)
+                        {
+                            <div style="color: #22e138">
+                                @product.Cost
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                @product.Cost
+                            </div>
+                        }
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th style="padding: 20px">
+                    <div style="text-align: justify">Документы</div>
+                </th>
+                @foreach (var product in Model)
+                {
+                    <td style="text-align: center; padding: 20px; margin: 5px">
+                        <div style="color: #22e138; font-size: x-large">
+                            @if (!string.IsNullOrEmpty(product.Documents))
+                            {
+                                <i class="bi bi-check2"></i>
+                            }
+                        </div>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th style="padding: 20px">
+                    <div style="text-align: justify">Оборудование</div>
+                </th>
+                @foreach (var product in Model)
+                {
+                    <td style="text-align: center; padding: 20px; margin: 5px">
+                        <div style="color: #22e138; font-size: x-large">
+                            @if (!string.IsNullOrEmpty(product.Equipment))
+                            {
+                                <i class="bi bi-check2"></i>
+                            }
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <p class="col" style="text-align: right">
+            <a class="btn btn-danger" href="~/comparison/clear" type="button">Очистить</a>
+        </p>
+    </div>
+}

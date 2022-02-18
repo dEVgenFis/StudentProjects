@@ -1,0 +1,55 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "CreateProduct";
+}
+
+<form method="post">
+    <div class="container text-center">
+        <h2>Создание нового продукта</h2>
+        <p>Внимательно изучите предложенные поля и заполните их.</p>
+        <div class="row justify-content-center" style="text-align: left">
+            <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+                <input style="text-align: center" placeholder="Введите имя мастера" asp-for="Name" />
+            </div>
+            <div class="col-3 offset-1" style="text-align: left">
+                <span asp-validation-for="Name" />
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+                <input style="text-align: center" placeholder="Введите стоимость услуги" asp-for="Cost" />
+            </div>
+            <div class="col-3 offset-1" style="text-align: left">
+                <span asp-validation-for="Cost" />
+            </div>
+        </div>
+        <div class="col-6 offset-3" style="margin-bottom: 5px">
+            <div style="text-align: center"><i>Выберите город:</i></div>
+            <div class="row justify-content-center">
+                @foreach (var city in ViewBag.AllWorkLocations)
+                {
+                    <div id="space-between-work-locations">
+                        <input class="work-location" type="checkbox" value="@city" name="locations" />@city
+                    </div>
+                }
+            </div>
+        </div>
+        <div style="padding-bottom: 5px">
+            <textarea style="text-align: center" cols="60" rows="4" placeholder="Здесь можно указать информацию об имеющихся у мастера профильных документах." name="Documents"></textarea>
+        </div>
+        <div style="padding-bottom: 5px">
+            <textarea style="text-align: center" cols="60" rows="4" placeholder="Здесь можно указать информацию об используемом мастером оборудовании." name="Equipment"></textarea>
+        </div>
+        <div style="padding-bottom: 10px">
+            <textarea style="text-align: center" cols="60" rows="4" placeholder="Здесь можно указать любую дополнительную информацию о мастере." name="Description"></textarea>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit" asp-controller="Admin" asp-action="AddProduct">Создать</button>
+        </div>
+    </div>
+</form>

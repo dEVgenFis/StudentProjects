@@ -1,0 +1,16 @@
+﻿@if (Constants.Theme == 0)
+{
+<div class="d-inline-block" data-toggle="tooltip" title="Выбрать тёмную тему">
+    <a class="btn btn-dark" href="~/theme/updatethemeondark" role="button">
+        <i class="bi bi-brightness-low" style="color: #1b6ec2"></i>
+    </a>
+</div>
+}
+else
+{
+<div class="d-inline-block" data-toggle="tooltip" title="Выбрать светлую тему">
+    <a class="btn btn-light" href="~/theme/updatethemeonlight" role="button">
+        <i class="bi bi-brightness-low" style="color: #1b6ec2"></i>
+    </a>
+</div>
+}

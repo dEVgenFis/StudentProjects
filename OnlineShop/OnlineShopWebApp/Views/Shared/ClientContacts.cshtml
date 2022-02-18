@@ -1,0 +1,29 @@
+﻿@model ClientContacts
+
+<fieldset style="background-color: rgba(225, 239, 242, 0.7); border-radius: 10px">
+    <legend>Контактные данные заказчика</legend>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+            <input style="text-align: center; width: 70%" placeholder="Введите имя" autofocus asp-for="FirstName" />
+        </div>
+        <div class="col-4" style="text-align: left">
+            <span asp-validation-for="FirstName" />
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+            <input style="text-align: center; width: 70%" placeholder="Введите фамилию" asp-for="LastName" />
+        </div>
+        <div class="col-4" style="text-align: left">
+            <span asp-validation-for="LastName" />
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 20px">
+            <input style="text-align: center; width: 70%" placeholder="Введите номер телефона" asp-for="PhoneNumber" />
+        </div>
+        <div class="col-4" style="text-align: left; padding-bottom: 15px">
+            <span asp-validation-for="PhoneNumber" />
+        </div>
+    </div>
+</fieldset>

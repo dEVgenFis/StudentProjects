@@ -1,0 +1,43 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = $"About {Model.Name}";
+}
+
+<div class="row">
+    <div class="col-4 card shadow" style="height: 452px; border-radius: 10px">
+        <div class="card-body" style="text-align: center">
+            <p>
+                <img class="card-img-top box" src=@Model.ImagePath height="300" />
+            </p>
+            <div style="padding-bottom: 10px">
+                <a class="btn btn-primary" href="~/home/index">
+                    <i class="bi bi-arrow-left-short">Продолжить покупки</i>
+                </a>
+            </div>
+            <div style="margin-bottom: 10px">
+                @await Component.InvokeAsync("AddProductToComparison", Model.Id)
+                @await Component.InvokeAsync("AddProductToCart", Model.Id)
+                @await Component.InvokeAsync("AddProductToFavourites", Model.Id)
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <h1><u>@Model.Name</u></h1>
+        <p>
+            Мастер изготовит для вас велосипедную раму за <b><u>@Model.Cost</u></b> руб.
+        </p>
+        <p>
+            <b><u>Работает по городам</u></b><br />@ViewBag.ProductWorkLocations
+        </p>
+        <p>
+            <b><u>Документы по профилю</u></b><br />@Model.Documents
+        </p>
+        <p>
+            <b><u>Используемое оборудование</u></b><br />@Model.Equipment
+        </p>
+        <p>
+            <b><u>О себе</u></b><br />@Model.Description
+        </p>
+    </div>
+</div>

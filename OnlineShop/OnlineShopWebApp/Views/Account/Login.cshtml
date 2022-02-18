@@ -1,0 +1,44 @@
+﻿@model Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form method="post">
+    <div style="text-align: center">
+        <h4>Вход</h4>
+    </div>
+    <div class="row justify-content-center">
+        <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-2 offset-5" style="text-align: center; padding-bottom: 10px">
+            <input style="text-align: center; width: 188px; margin-left: -15px" placeholder="Логин" asp-for="UserName" />
+        </div>
+        <div style="padding-left: 30px; padding-bottom: 5px">
+            <span asp-validation-for="UserName" />
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-2 offset-5" style="text-align: center; padding-bottom: 10px">
+            <input style="text-align: center; width: 188px; margin-left: -15px" placeholder="Пароль" asp-for="Password" />
+        </div>
+        <div style="padding-left: 30px; padding-bottom: 5px">
+            <span asp-validation-for="Password" />
+        </div>
+    </div>
+    <div class="row justify-content-center" style="padding-bottom: 10px">
+        <div>
+            <input value="true" asp-for="RememberMe" />
+        </div>
+        <div style="padding-left: 10px">
+            Запомнить меня
+        </div>
+    </div>
+    <div class="row justify-content-center" style="padding-bottom: 10px">
+        <button class="btn btn-primary" type="submit" asp-controller="Account" asp-action="Login">Войти</button>
+    </div>
+    <div class="row justify-content-center">
+        <a href="~/account/register">Регистрация нового пользователя</a>
+    </div>
+</form>

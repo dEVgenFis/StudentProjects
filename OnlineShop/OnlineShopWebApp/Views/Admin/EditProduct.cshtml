@@ -1,0 +1,79 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = $"Edit {Model.Name}";
+}
+
+<form method="post">
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <div class="row">
+        <div class="col-4 card shadow" style="height: 452px; border-radius: 10px">
+            <div class="card-body" style="text-align: center">
+                <p>
+                    <img class="card-img-top box" src=@Model.ImagePath height="300" />
+                </p>
+                <p>
+                    <button class="btn btn-primary" type="submit" asp-controller="Admin" asp-action="EditProduct">Сохранить</button>
+                </p>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="row justify-content-center" style="text-align: left">
+                <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-4" style="text-align: left; padding-bottom: 5px; padding-right: 0px; margin-top: 3px">
+                    <b>Имя мастера:</b>
+                </div>
+                <div class="col-4" style="text-align: right; padding-left: 0px; padding-right: 0px">
+                    <input style="text-align: center" value="@Model.Name" asp-for="Name" />
+                </div>
+                <div class="col-4" style="text-align: left; padding-bottom: 5px; padding-right: 0px; margin-top: 3px">
+                    <span asp-validation-for="Name" />
+                </div>
+                <div class="col-4" style="text-align: left; padding-bottom: 5px; padding-right: 0px; margin-top: 3px">
+                    <b>Стоимость услуги, руб.:</b>
+                </div>
+                <div class="col-4" style="text-align: right; padding-left: 0px; padding-right: 0px">
+                    <input style="text-align: center" value="@Model.Cost" placeholder="0.00" asp-for="Cost" />
+                </div>
+                <div class="col-4" style="text-align: left; padding-bottom: 5px; padding-right: 0px; margin-top: 3px">
+                    <span asp-validation-for="Cost" />
+                </div>
+                <div class="row col-12" style="padding-bottom: 5px; margin-top: 3px">
+                    <div class="col-4" style="text-align: left">
+                        <b>Выберите город:</b>
+                    </div>
+                    <div class="col-8">
+                        <div class="row justify-content-center">
+                            @foreach (var city in ViewBag.AllWorkLocations)
+                            {
+                                <div id="space-between-work-locations">
+                                    <input class="work-location" type="checkbox" value="@city" name="locations" />@city
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom: 10px">
+                <div><b>Документы по профилю:</b></div>
+                <div>
+                    <textarea style="text-align: center" cols="82" rows="4" name="Documents"></textarea>
+                </div>
+            </div>
+            <div style="margin-bottom: 10px">
+                <div><b>Используемое оборудование:</b></div>
+                <div>
+                    <textarea style="text-align: center" cols="82" rows="4" name="Equipment"></textarea>
+                </div>
+            </div>
+            <div style="margin-bottom: 10px">
+                <div><b>О себе:</b></div>
+                <div>
+                    <textarea style="text-align: center" cols="82" rows="4" name="Description"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

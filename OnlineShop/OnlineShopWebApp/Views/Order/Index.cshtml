@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "OrderRegistration";
+}
+
+<form method="post">
+    <div class="container text-center">
+        <h2>Добро пожаловать на страницу офорления заказа!</h2>
+        <p>Внимательно изучите предложенные поля и заполните их.</p>
+        <div class="row justify-content-center" style="text-align: left">
+            <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
+        </div>
+        @await Html.PartialAsync("ClientContacts")<br />
+        @await Html.PartialAsync("DeliveryAddress")<br />
+        <fieldset style="background-color: rgba(225, 239, 242, 0.7); border-radius: 10px">
+            <legend>Комментарий к заказу</legend>
+            <div style="padding-bottom: 20px">
+                <textarea style="text-align: center" cols="50" rows="5" placeholder="Здесь вы можете оставить любую важную для вас информацию, к примеру, номер подъезда или дополнительный номер телефона." name="Comment"></textarea>
+            </div>
+        </fieldset><br />
+        <div>
+            <button class="btn btn-primary" type="submit" asp-controller="Order" asp-action="Buy">Оформить заказ</button>
+        </div>
+    </div>
+</form>

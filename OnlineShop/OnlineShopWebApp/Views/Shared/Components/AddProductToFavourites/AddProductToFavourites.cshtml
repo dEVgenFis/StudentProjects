@@ -1,0 +1,20 @@
+﻿@model Product
+
+@if (!ViewBag.Comparison.Contains(Model))
+{
+    <span data-toggle="tooltip" title="Добавить в Избранное">
+        <a class="btn btn-outline-danger" href="~/favourites/addproduct?productId=@Model.Id" role="button">
+            <i class="bi bi-heart-fill">+</i>
+        </a>
+    </span>
+}
+else
+{
+    <span data-toggle="tooltip" title="Товар добавлен в Избранное">
+        <button type="button" class="btn btn-outline-danger" disabled>
+            <i class="bi bi-heart-fill">
+                <i class="bi bi-check2"></i>
+            </i>
+        </button>
+    </span>
+}

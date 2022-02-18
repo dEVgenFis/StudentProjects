@@ -1,0 +1,42 @@
+﻿@model List<Role>
+
+@{
+    ViewData["Title"] = "AdminRoles";
+}
+
+<div class="row">
+    @await Html.PartialAsync("AdminLeftMenu")
+    <div class="col-10">
+        <div class="row" style="padding-bottom: 10px">
+            <div class="col-4 glow-font-dark" style="text-align: start">
+                <h3>Список ролей</h3>
+            </div>
+            <div class="col-8" style="text-align: right; padding-top: 12px">
+                <a class="glow-reference-dark" href="~/admin/addRole">Добавить новую роль</a>
+            </div>
+        </div>
+        <fieldset class="fieldset-table-dark">
+            <table class="table" style="text-align: center">
+                <thead class="glow-reference-dark">
+                    <tr>
+                        <th>№</th>
+                        <th>Название роли</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="glow-font-dark">@(i + 1)</td>
+                            <td class="glow-font-dark">@Model[i].Name</td>
+                            <td>
+                                <a class="glow-reference-dark" href="~/admin/removerole?roleName=@Model[i].Name">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>

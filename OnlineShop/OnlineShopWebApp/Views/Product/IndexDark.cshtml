@@ -1,0 +1,43 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = $"About {Model.Name}";
+}
+
+<div class="row">
+    <div class="col-4 card shadow" style="height: 452px; border-radius: 10px; background-color: black">
+        <div class="card-body" style="text-align: center">
+            <p>
+                <img class="card-img-top box" src=@Model.ImagePath height="300" />
+            </p>
+            <div style="padding-bottom: 10px">
+                <a class="btn btn-primary btn-primary-glow-dark" href="~/home/index">
+                    <i class="bi bi-arrow-left-short">Продолжить покупки</i>
+                </a>
+            </div>
+            <div style="margin-bottom: 10px">
+                @await Component.InvokeAsync("AddProductToComparisonFromProductPage", Model.Id)
+                @await Component.InvokeAsync("AddProductToCartFromProductPage", Model.Id)
+                @await Component.InvokeAsync("AddProductToFavourites", Model.Id)
+            </div>
+        </div>
+    </div>
+    <div class="col-8 glow-font-dark">
+        <h1 class="glow-reference-dark">@Model.Name</h1>
+        <p>
+            Мастер изготовит для вас велосипедную раму за <span class="glow-reference-dark">@Model.Cost</span> руб.
+        </p>
+        <p>
+            <div class="glow-reference-dark">Работает по городам</div>@ViewBag.ProductWorkLocations
+        </p>
+        <p>
+            <div class="glow-reference-dark">Документы по профилю</div>@Model.Documents
+        </p>
+        <p>
+            <div class="glow-reference-dark">Используемое оборудование</div>@Model.Equipment
+        </p>
+        <p>
+            <div class="glow-reference-dark">О себе</div>@Model.Description
+        </p>
+    </div>
+</div>

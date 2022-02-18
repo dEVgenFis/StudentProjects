@@ -1,0 +1,34 @@
+﻿@model DeliveryAddress
+
+<fieldset style="background-color: rgba(225, 239, 242, 0.7); border-radius: 10px">
+    <legend>Адрес заказчика</legend>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+            <input style="text-align: center; width: 70%" placeholder="Введите название города" asp-for="СityName" />
+        </div>
+        <div class="col-4" style="text-align: left">
+            <span asp-validation-for="СityName" />
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+            <input style="text-align: center; width: 70%" placeholder="Введите название улицы" asp-for="StreetName" />
+        </div>
+        <div class="col-4" style="text-align: left">
+            <span asp-validation-for="StreetName" />
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
+            <input style="text-align: center; width: 70%" placeholder="Введите номер дома" asp-for="HouseNumber" />
+        </div>
+        <div class="col-4" style="text-align: left">
+            <span asp-validation-for="HouseNumber" />
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-4 offset-4" style="text-align: center; padding-bottom: 20px">
+            <input style="text-align: center; width: 70%" placeholder="Введите номер квартиры" asp-for="FlatNumber" />
+        </div>
+    </div>
+</fieldset>
