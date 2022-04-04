@@ -15,7 +15,6 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
-            productsStorage.ResetSearchWord();
             productsStorage.ResetWorkLocations();
             var сatalog = productsStorage.GetAllProducts();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
