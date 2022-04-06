@@ -11,9 +11,11 @@
                 <img class="card-img-top box" src=@Model.ImagePath height="300" />
             </p>
             <div style="padding-bottom: 10px">
-                <a class="btn btn-primary btn-primary-glow-dark" href="~/home/index">
-                    <i class="bi bi-arrow-left-short">Продолжить покупки</i>
-                </a>
+                <a class="btn btn-primary btn-primary-glow-dark"
+                   asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index">
+                <i class="bi bi-arrow-left-short">Продолжить покупки</i></a>
             </div>
             <div style="margin-bottom: 10px">
                 @await Component.InvokeAsync("AddProductToComparisonFromProductPage", Model.Id)

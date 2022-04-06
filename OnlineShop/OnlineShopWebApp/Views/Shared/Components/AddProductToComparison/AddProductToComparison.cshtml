@@ -13,9 +13,12 @@
     else
     {
         <span data-toggle="tooltip" title="К сравнению">
-            <a class="btn btn-light" href="~/comparison/addproduct?productId=@Model.Id" role="button">
-                <i class="bi bi-bar-chart">+</i>
-            </a>
+            <a class="btn btn-light" role="button"
+               asp-area=""
+               asp-controller="Comparison"
+               asp-action="AddProduct"
+               asp-route-productId="@Model.Id">
+            <i class="bi bi-bar-chart">+</i></a>
         </span>
     }
 }

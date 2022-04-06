@@ -3,9 +3,12 @@
 @if (ViewBag.ExistsInCart == false)
 {
     <span data-toggle="tooltip" title="Добавить в корзину">
-        <a class="btn btn-warning" href="~/cart/add?productId=@Model.Id" role="button">
-            <i class="bi bi-cart4">+</i>
-        </a>
+        <a class="btn btn-warning" role="button"
+           asp-area=""
+           asp-controller="Cart"
+           asp-action="Add"
+           asp-route-productId="@Model.Id">
+        <i class="bi bi-cart4">+</i></a>
     </span>
 }
 else

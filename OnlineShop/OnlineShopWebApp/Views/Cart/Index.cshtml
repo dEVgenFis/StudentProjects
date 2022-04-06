@@ -26,7 +26,12 @@ else
             {
                 <tr>
                     <td>
-                        <a href="~/product/index?productId=@item.Product.Id">@item.Product.Name</a>
+                        <a
+                           asp-area=""
+                           asp-controller="Product"
+                           asp-action="Index"
+                           asp-route-productId="@item.Product.Id">
+                        @item.Product.Name</a>
                     </td>
                     <td>
                         Изготовление велосипедной рамы
@@ -39,13 +44,23 @@ else
                     <td>
                         <div class="row">
                             <div class="col-4 offset-1" style="text-align: right; margin-left: 8px">
-                                <a class="btn btn-warning" href="~/cart/decreaseAmount?productId=@item.Product.Id" role="button"><b>-</b></a>
+                                <a class="btn btn-warning" role="button"
+                                   asp-area=""
+                                   asp-controller="Cart"
+                                   asp-action="DecreaseAmount"
+                                   asp-route-productId="@item.Product.Id">
+                                <b>-</b></a>
                             </div>
                             <div class="col-2" style="text-align: center">
                                 @item.Amount
                             </div>
                             <div class="col-4" style="text-align: left; margin-left: 10px">
-                                <a class="btn btn-warning" href="~/cart/add?productId=@item.Product.Id" role="button"><b>+</b></a>
+                                <a class="btn btn-warning" role="button"
+                                   asp-area=""
+                                   asp-controller="Cart"
+                                   asp-action="Add"
+                                   asp-route-productId="@item.Product.Id">
+                                <b>+</b></a>
                             </div>
                         </div>
                     </td>
@@ -67,9 +82,12 @@ else
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
-                                        <a class="btn btn-danger" href="~/cart/removePosition?productId=@item.Product.Id" role="button">
-                                            Да.
-                                        </a>
+                                        <a class="btn btn-danger" role="button"
+                                           asp-area=""
+                                           asp-controller="Cart"
+                                           asp-action="RemovePosition"
+                                           asp-route-productId="@item.Product.Id">
+                                        Да.</a>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +111,11 @@ else
     <br />
     <div class="row">
         <div class="col-3" style="text-align: left">
-            <a class="btn btn-primary" href="~/home/index" role="button">Продолжить покупки</a>
+            <a class="btn btn-primary" role="button"
+               asp-area=""
+               asp-controller="Home"
+               asp-action="Index">
+            Продолжить покупки</a>
         </div>
         <div class="col-2 offset-5" style="text-align: center; padding-left: 8px">
             <a class="btn btn-danger" href="#modal_cart_clear" data-toggle="modal">Очистить</a>
@@ -108,16 +130,22 @@ else
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
-                            <a class="btn btn-danger" href="~/cart/clear" role="button">
-                                Да.
-                            </a>
+                            <a class="btn btn-danger" role="button"
+                               asp-area=""
+                               asp-controller="Cart"
+                               asp-action="Clear">
+                            Да.</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-2" style="text-align: right">
-            <a class="btn btn-primary" href="~/order/index" role="button">Оформить заказ</a>
+            <a class="btn btn-primary" role="button"
+               asp-area=""
+               asp-controller="Order"
+               asp-action="Index">
+            Оформить заказ</a>
         </div>
     </div>
 }

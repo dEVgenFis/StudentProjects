@@ -12,7 +12,11 @@
                 <h3>Список ролей</h3>
             </div>
             <div class="col-8" style="text-align: right; padding-top: 12px">
-                <a class="glow-reference-dark" href="~/admin/addRole">Добавить новую роль</a>
+                <a class="glow-reference-dark"
+                   asp-area=""
+                   asp-controller="Admin"
+                   asp-action="AddRole">
+                Добавить новую роль</a>
             </div>
         </div>
         <fieldset class="fieldset-table-dark">
@@ -31,7 +35,12 @@
                             <td class="glow-font-dark">@(i + 1)</td>
                             <td class="glow-font-dark">@Model[i].Name</td>
                             <td>
-                                <a class="glow-reference-dark" href="~/admin/removerole?roleName=@Model[i].Name">Удалить</a>
+                                <a class="glow-reference-dark"
+                                   asp-area=""
+                                   asp-controller="Admin"
+                                   asp-action="RemoveRole"
+                                   asp-route-roleName="@Model[i].Name">
+                                Удалить</a>
                             </td>
                         </tr>
                     }

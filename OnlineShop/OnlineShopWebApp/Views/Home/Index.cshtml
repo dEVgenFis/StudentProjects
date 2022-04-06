@@ -12,7 +12,11 @@
                     <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" name="searchWord" />
                 </div>
                 <div class="col-2 d-inline-block" style="padding: 0px 0px 0px 5px" data-toggle="tooltip" title="Начать поиск">
-                    <button class="btn btn-primary" type="submit" asp-controller="Home" asp-action="Filtering"><i class="bi bi-search"></i></button>
+                    <button class="btn btn-primary" type="submit"
+                        asp-area=""
+                        asp-controller="Home"
+                        asp-action="Filtering">
+                    <i class="bi bi-search"></i></button>
                 </div>
             </div><br /><br />
             <div><b><u>Настройте фильтры поиска:</u></b></div><br />
@@ -37,10 +41,18 @@
             <input style="width: inherit; padding: 0px 0px 20px 0px" type="range" name="maxCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MaxCost" />
             <div class="row justify-content-center">
                 <div style="text-align: center">
-                    <button class="btn btn-primary" type="submit" asp-controller="Home" asp-action="Filtering">Применить</button>
+                    <button class="btn btn-primary" type="submit"
+                        asp-area=""
+                        asp-controller="Home"
+                        asp-action="Filtering">
+                    Применить</button>
                 </div>&nbsp;
                 <div style="text-align: center">
-                    <button class="btn btn-danger" disabled asp-controller="Home" asp-action="Index">Сбросить</button>
+                    <button class="btn btn-danger" disabled
+                        asp-area=""
+                        asp-controller="Home"
+                        asp-action="Index">
+                    Сбросить</button>
                 </div>
             </div>
         </div>
@@ -64,7 +76,11 @@
                                 @await Component.InvokeAsync("AddProductToComparison", product.Id)
                             </div>
                             <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
-                                <a style="color: black" href="~/product/index?productId=@product.Id">
+                                <a style="color: black"
+                                   asp-area=""
+                                   asp-controller="Product"
+                                   asp-action="Index"
+                                   asp-route-productId="@product.Id">
                                     <img class="card-img-top" src=@product.ImagePath height="100" />
                                     <h5 class="card-title" style="margin-bottom: 5px">@product.Name</h5>
                                     <p class="card-text" style="margin-bottom: 5px">@product.Cost руб.</p>

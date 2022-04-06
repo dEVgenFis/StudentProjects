@@ -36,9 +36,17 @@
         </div>
     </div>
     <div class="row justify-content-center" style="padding-bottom: 10px">
-        <button class="btn btn-primary btn-primary-glow-dark" type="submit" asp-controller="Account" asp-action="Login">Войти</button>
+        <button class="btn btn-primary btn-primary-glow-dark" type="submit"
+            asp-area=""
+            asp-controller="Account"
+            asp-action="Login">
+        Войти</button>
     </div>
     <div class="row justify-content-center">
-        <a class="glow-reference-dark" href="~/account/register">Регистрация нового пользователя</a>
+        <a class="glow-reference-dark"
+           asp-area=""
+           asp-controller="Account"
+           asp-action="Register">
+        Регистрация нового пользователя</a>
     </div>
 </form>

@@ -11,7 +11,6 @@
         <div class="row justify-content-center" style="text-align: left">
             <div class="glow-reference-dark" asp-validation-summary="All"></div>
         </div>
-
         <div class="row align-items-center">
             <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
                 <input style="text-align: center" placeholder="Введите имя мастера" asp-for="Name" />
@@ -49,7 +48,11 @@
             <textarea style="text-align: center" cols="55" rows="4" placeholder="Здесь можно указать любую дополнительную информацию о мастере." name="Description"></textarea>
         </div>
         <div>
-            <button class="btn btn-primary btn-primary-glow-dark" type="submit" asp-controller="Admin" asp-action="AddProduct">Создать</button>
+            <button class="btn btn-primary btn-primary-glow-dark" type="submit"
+                asp-area=""
+                asp-controller="Admin"
+                asp-action="AddProduct">
+            Создать</button>
         </div>
     </div>
 </form>

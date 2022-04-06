@@ -16,11 +16,20 @@ else
             <div class="card shadow" style="text-align: center; width: 145px; border: 1px solid; margin: 5px">
                 <div class="d-inline-block" data-toggle="tooltip" title="Удалить">
                     <div style="text-align: right; padding: 0px 15px 0px 0px">
-                        <a style="color: red" href="~/favourites/removeproduct?productId=@product.Id"><b>X</b></a>
+                        <a style="color: red"
+                           asp-area=""
+                           asp-controller="Favourites"
+                           asp-action="RemoveProduct"
+                           asp-route-productId="@product.Id">
+                        <b>X</b></a>
                     </div>
                 </div>
                 <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
-                    <a style="color: black" href="~/product/index?productId=@product.Id">
+                    <a style="color: black"
+                       asp-area=""
+                       asp-controller="Product"
+                       asp-action="Index"
+                       asp-route-productId="@product.Id">
                         <img class="card-img-top" src=@product.ImagePath height="100" />
                         <h5 class="card-title" style="margin-bottom: 5px">@product.Name</h5>
                         <p class="card-text" style="margin-bottom: 5px">@product.Cost руб.</p>
@@ -48,9 +57,11 @@ else
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
-                            <a class="btn btn-danger" href="~/favourites/clear" role="button">
-                                Да.
-                            </a>
+                            <a class="btn btn-danger" role="button"
+                               asp-area=""
+                               asp-controller="Favourites"
+                               asp-action="Clear">
+                            Да.</a>
                         </div>
                     </div>
                 </div>

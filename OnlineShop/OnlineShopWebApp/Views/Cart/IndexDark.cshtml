@@ -27,7 +27,12 @@ else
             {
                 <tr>
                     <td>
-                        <a class="glow-reference-dark" href="~/product/index?productId=@item.Product.Id">@item.Product.Name</a>
+                        <a class="glow-reference-dark"
+                           asp-area=""
+                           asp-controller="Product"
+                           asp-action="Index"
+                           asp-route-productId="@item.Product.Id">
+                        @item.Product.Name</a>
                     </td>
                     <td class="glow-font-dark">
                         Изготовление велосипедной рамы
@@ -40,13 +45,23 @@ else
                     <td>
                         <div class="row">
                             <div class="col-4 offset-1" style="text-align: right; margin-left: 8px">
-                                <a class="btn btn-primary btn-primary-glow-dark-modal" href="~/cart/decreaseAmount?productId=@item.Product.Id" role="button"><b>-</b></a>
+                                <a class="btn btn-primary btn-primary-glow-dark-modal" role="button"
+                                   asp-area=""
+                                   asp-controller="Cart"
+                                   asp-action="DecreaseAmount"
+                                   asp-route-productId="@item.Product.Id">
+                                <b>-</b></a>
                             </div>
                             <div class="col-2 glow-font-dark" style="text-align: center">
                                 @item.Amount
                             </div>
                             <div class="col-4" style="text-align: left; margin-left: 10px">
-                                <a class="btn btn-primary btn-primary-glow-dark-modal" href="~/cart/add?productId=@item.Product.Id" role="button"><b>+</b></a>
+                                <a class="btn btn-primary btn-primary-glow-dark-modal" role="button"
+                                   asp-area=""
+                                   asp-controller="Cart"
+                                   asp-action="Add"
+                                   asp-route-productId="@item.Product.Id">
+                                <b>+</b></a>
                             </div>
                         </div>
                     </td>
@@ -68,9 +83,12 @@ else
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary btn-primary-glow-dark-modal" data-dismiss="modal">Нет!</button>
-                                        <a class="btn btn-warning btn-warning-glow-dark" href="~/cart/removePosition?productId=@item.Product.Id" role="button">
-                                            Да.
-                                        </a>
+                                        <a class="btn btn-warning btn-warning-glow-dark" role="button"
+                                           asp-area=""
+                                           asp-controller="Cart"
+                                           asp-action="RemovePosition"
+                                           asp-route-productId="@item.Product.Id">
+                                        Да.</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +113,11 @@ else
     <br />
     <div class="row">
         <div class="col-3" style="text-align: left">
-            <a class="btn btn-primary btn-primary-glow-dark" href="~/home/index" role="button">Продолжить покупки</a>
+            <a class="btn btn-primary btn-primary-glow-dark" role="button"
+               asp-area=""
+               asp-controller="Home"
+               asp-action="Index">
+            Продолжить покупки</a>
         </div>
         <div class="col-2 offset-5" style="text-align: center; padding-left: 8px">
             <a class="btn btn-dark" href="#modal_cart_clear" data-toggle="modal">Очистить</a>
@@ -110,22 +132,26 @@ else
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary btn-primary-glow-dark-modal" data-dismiss="modal">Нет!</button>
-                            <a class="btn btn-warning btn-warning-glow-dark" href="~/cart/clear" role="button">
-                                Да.
-                            </a>
+                            <a class="btn btn-warning btn-warning-glow-dark" role="button"
+                               asp-area=""
+                               asp-controller="Cart"
+                               asp-action="Clear">
+                            Да.</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-2" style="text-align: right; overflow: hidden; padding: 15px; margin-top: -15px; margin-bottom: -15px">
-            <a class="btn btn-primary btn-primary-glow-dark" style="border-color: rgba(0, 0, 0, 0.0)" href="~/order/index" role="button">
+            <a class="btn btn-primary btn-primary-glow-dark" style="border-color: rgba(0, 0, 0, 0.0)" role="button"
+               asp-area=""
+               asp-controller="Order"
+               asp-action="Index">
                 <span class="button-line button-line-top"></span>
                 <span class="button-line button-line-right"></span>
                 <span class="button-line button-line-bottom"></span>
                 <span class="button-line button-line-left"></span>
-                Оформить заказ
-            </a>
+            Оформить заказ</a>
         </div>
     </div>
 }

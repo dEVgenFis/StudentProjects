@@ -42,7 +42,12 @@
                                 <td>@Model[i].CreationData</td>
                                 <td>@Model[i].CreationTime</td>
                                 <td>
-                                    <a class="glow-reference-dark" href="~/admin/orderDetails?orderId=@Model[i].Id">Подробности</a>
+                                    <a class="glow-reference-dark"
+                                       asp-area=""
+                                       asp-controller="Admin"
+                                       asp-action="OrderDetails"
+                                       asp-route-orderId="@Model[i].Id">
+                                    Подробности</a>
                                 </td>
                             </tr>
                         }

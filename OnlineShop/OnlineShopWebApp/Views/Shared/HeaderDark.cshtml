@@ -2,9 +2,21 @@
     <nav class="header-dark navbar navbar-expand-sm box-shadow mb-3">
         <div class="container">
             <div style="text-align: left">
-                <a class="btn btn-primary btn-primary-glow-dark" href="~/home/index" role="button">На главную</a>
-                <a class="btn btn-primary btn-primary-glow-dark" href="~/account/login" role="button">Войти</a>
-                <a class="btn btn-light" href="~/admin/orders" role="button">Панель администратора</a>
+                <a class="btn btn-primary btn-primary-glow-dark" role="button"
+                   asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index">
+                На главную</a>
+                <a class="btn btn-primary btn-primary-glow-dark" role="button"
+                   asp-area=""
+                   asp-controller="Account"
+                   asp-action="Login">
+                Войти</a>
+                <a class="btn btn-light" role="button"
+                   asp-area=""
+                   asp-controller="Admin"
+                   asp-action="Orders">
+                Панель администратора</a>
             </div>
             <div style="text-align: right">
                 <div class="d-inline-block">

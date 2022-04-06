@@ -13,7 +13,11 @@
                     <img class="card-img-top box" src=@Model.ImagePath height="300" />
                 </p>
                 <p>
-                    <button class="btn btn-primary" type="submit" asp-controller="Admin" asp-action="EditProduct">Сохранить</button>
+                    <button class="btn btn-primary" type="submit"
+                        asp-area=""
+                        asp-controller="Admin"
+                        asp-action="EditProduct">
+                    Сохранить</button>
                 </p>
             </div>
         </div>

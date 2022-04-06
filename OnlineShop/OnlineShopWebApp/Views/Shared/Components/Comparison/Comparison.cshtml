@@ -2,13 +2,17 @@
 
 @if (Model == 0)
 {
-    <a class="btn btn-light" style="text-align: right" href="~/comparison/index">
-        <i class="bi bi-bar-chart"></i>
-    </a>
+    <a class="btn btn-light" style="text-align: right"
+       asp-area=""
+       asp-controller="Comparison"
+       asp-action="Index">
+    <i class="bi bi-bar-chart"></i></a>
 }
 else
 {
-    <a class="btn btn-light" style="text-align: right" href="~/comparison/index">
-        <i class="bi bi-bar-chart"></i><sub><b>@Model</b></sub>
-    </a>
+    <a class="btn btn-light" style="text-align: right"
+       asp-area=""
+       asp-controller="Comparison"
+       asp-action="Index">
+    <i class="bi bi-bar-chart"></i><sub><b>@Model</b></sub></a>
 }

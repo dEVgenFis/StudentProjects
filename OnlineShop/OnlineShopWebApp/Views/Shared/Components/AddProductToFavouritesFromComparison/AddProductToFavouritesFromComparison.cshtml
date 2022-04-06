@@ -3,9 +3,12 @@
 @if (!ViewBag.Comparison.Contains(Model))
 {
     <span data-toggle="tooltip" title="Добавить в Избранное">
-        <a class="text-danger" href="~/favourites/addproduct?productId=@Model.Id">
-            <i class="bi bi-heart-fill">+</i>
-        </a>
+        <a class="text-danger"
+           asp-area=""
+           asp-controller="Favourites"
+           asp-action="AddProduct"
+           asp-route-productId="@Model.Id">
+        <i class="bi bi-heart-fill">+</i></a>
     </span>
 }
 else
