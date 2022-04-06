@@ -13,9 +13,9 @@
             </div>
             <div class="col-8" style="text-align: right; padding-top: 12px">
                 <a
-                   asp-area=""
-                   asp-controller="Admin"
-                   asp-action="AddRole">
+                   asp-area="Admin"
+                   asp-controller="Roles"
+                   asp-action="Add">
                 Добавить новую роль</a>
             </div>
         </div>
@@ -35,9 +35,9 @@
                         <td>@Model[i].Name</td>
                         <td>
                             <a
-                               asp-area=""
-                               asp-controller="Admin"
-                               asp-action="RemoveRole"
+                               asp-area="Admin"
+                               asp-controller="Roles"
+                               asp-action="Remove"
                                asp-route-roleName="@Model[i].Name">
                             Удалить</a>
                         </td>

@@ -21,7 +21,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(item.Products);
             }
-            return View("indexdark", item.Products);
+            return View("IndexDark", item.Products);
         }
         public IActionResult AddProduct(Guid productId)
         {
@@ -33,12 +33,12 @@ namespace OnlineShopWebApp.Controllers
         {
             var product = productsStorage.TryGetProductById(productId);
             favouritesStorage.RemoveProduct(product, Constants.UserId);
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
         public IActionResult Clear()
         {
             favouritesStorage.Clear(Constants.UserId);
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
     }
 }

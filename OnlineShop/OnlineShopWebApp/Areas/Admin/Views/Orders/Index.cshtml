@@ -42,9 +42,9 @@
                             <td>@Model[i].CreationTime</td>
                             <td>
                                 <a
-                                   asp-area=""
-                                   asp-controller="Admin"
-                                   asp-action="OrderDetails"
+                                   asp-area="Admin"
+                                   asp-controller="Orders"
+                                   asp-action="Details"
                                    asp-route-orderId="@Model[i].Id">
                                 Подробности</a>
                             </td>

@@ -12,7 +12,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View();
             }
-            return View("logindark");
+            return View("LoginDark");
         }
 
         [HttpPost]
@@ -20,7 +20,7 @@ namespace OnlineShopWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("index", "home");
+                return RedirectToAction("Index", "Home");
             }
             return View(login);
         }
@@ -32,7 +32,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View();
             }
-            return View("registerdark");
+            return View("RegisterDark");
         }
 
         [HttpPost]
@@ -44,13 +44,13 @@ namespace OnlineShopWebApp.Controllers
             }
             if (ModelState.IsValid)
             {
-                return RedirectToAction("index", "home");
+                return RedirectToAction("Index", "Home");
             }
             if (Constants.Theme == Theme.Light)
             {
                 return View(register);
             }
-            return View("registerdark", register);
+            return View("RegisterDark", register);
         }
     }
 }

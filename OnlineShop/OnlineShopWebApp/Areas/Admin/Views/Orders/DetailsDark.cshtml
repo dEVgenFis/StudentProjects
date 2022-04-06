@@ -1,7 +1,7 @@
 ﻿@model Order
 
 @{
-    ViewData["Title"] = $"About {Model.UserId}";
+    ViewData["Title"] = $"Order {Model.UserId}";
 }
 
 <form method="post">
@@ -73,9 +73,9 @@
                         </div>
                         <div class="col-4" style="text-align: left">
                             <button class="btn btn-primary btn-primary-glow-dark" type="submit"
-                                asp-area=""
-                                asp-controller="Admin"
-                                asp-action="UpdateOrdrerStatus"
+                                asp-area="Admin"
+                                asp-controller="Orders"
+                                asp-action="UpdateStatus"
                                 asp-route-orderId="@Model.Id">
                             Обновить статус</button>
                         </div>

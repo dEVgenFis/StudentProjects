@@ -21,7 +21,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(product);
             }
-            return View("indexdark", product);
+            return View("IndexDark", product);
         }
     }
 }

@@ -1,28 +1,28 @@
 ﻿@model Role
 
 @{
-    ViewData["Title"] = "CreateProduct";
+    ViewData["Title"] = "CreateRole";
 }
 
 <form method="post">
-    <div class="container glow-font-dark text-center">
+    <div class="container text-center">
         <h2>Создание новой роли</h2>
         <div class="row justify-content-center" style="text-align: left">
-            <div class="glow-reference-dark" asp-validation-summary="All"></div>
+            <div class="text-danger font-weight-bold" asp-validation-summary="All"></div>
         </div>
         <div class="row align-items-center">
             <div class="col-4 offset-4" style="text-align: center; padding-bottom: 10px">
                 <input style="text-align: center" placeholder="Введите название роли" asp-for="Name" />
             </div>
-            <div class="col-4 glow-font-dark" style="text-align: left; padding-left: 0px; padding-bottom: 10px; margin-top: 3px">
+            <div class="col-4" style="text-align: left; padding-left: 0px; padding-bottom: 10px; margin-top: 3px">
                 <span asp-validation-for="Name" />
             </div>
         </div>
         <div>
-            <button class="btn btn-primary btn-primary-glow-dark" type="submit"
-                asp-area=""
-                asp-controller="Admin"
-                asp-action="AddRole">
+            <button class="btn btn-primary" type="submit"
+                asp-area="Admin"
+                asp-controller="Roles"
+                asp-action="Add">
             Создать</button>
         </div>
     </div>

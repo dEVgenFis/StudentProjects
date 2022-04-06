@@ -13,9 +13,9 @@
             </div>
             <div class="col-8" style="text-align: right; padding-top: 12px">
                 <a class="glow-reference-dark"
-                   asp-area=""
-                   asp-controller="Admin"
-                   asp-action="AddProduct">
+                   asp-area="Admin"
+                   asp-controller="Products"
+                   asp-action="Add">
                 Добавить новый продукт</a>
             </div>
         </div>
@@ -47,9 +47,9 @@
                             <td class="glow-font-dark">@Model[i].Cost</td>
                             <td>
                                 <a class="glow-reference-dark"
-                                   asp-area=""
-                                   asp-controller="Admin"
-                                   asp-action="EditProduct"
+                                   asp-area="Admin"
+                                   asp-controller="Products"
+                                   asp-action="Edit"
                                    asp-route-productId="@Model[i].Id">
                                 Редактировать</a>
                             </td>
@@ -67,9 +67,9 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-primary btn-primary-glow-dark-modal" data-dismiss="modal">Нет!</button>
                                                 <a class="btn btn-warning btn-warning-glow-dark" role="button"
-                                                   asp-area=""
-                                                   asp-controller="Admin"
-                                                   asp-action="RemoveProduct"
+                                                   asp-area="Admin"
+                                                   asp-controller="Products"
+                                                   asp-action="Remove"
                                                    asp-route-productId="@Model[i].Id">
                                                 Да.</a>
                                             </div>

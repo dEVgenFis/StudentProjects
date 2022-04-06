@@ -1,0 +1,66 @@
+﻿@if (Constants.Theme == Theme.Light)
+{
+    <div class="col-2">
+        <div>
+            <a
+               asp-area="Admin"
+               asp-controller="Orders"
+               asp-action="Index">
+            Заказы</a>
+        </div>
+        <div>
+            <a
+               asp-area="Admin"
+               asp-controller="Users"
+               asp-action="Index">
+            Пользователи</a>
+        </div>
+        <div>
+            <a
+               asp-area="Admin"
+               asp-controller="Roles"
+               asp-action="Index">
+            Роли</a>
+        </div>
+        <div>
+            <a
+               asp-area="Admin"
+               asp-controller="Products"
+               asp-action="Index">
+            Продукты</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-2">
+        <div>
+            <a class="glow-reference-dark"
+               asp-area="Admin"
+               asp-controller="Orders"
+               asp-action="Index">
+            Заказы</a>
+        </div>
+        <div>
+            <a class="glow-reference-dark"
+               asp-area="Admin"
+               asp-controller="Users"
+               asp-action="Index">
+            Пользователи</a>
+        </div>
+        <div>
+            <a class="glow-reference-dark"
+               asp-area="Admin"
+               asp-controller="Roles"
+               asp-action="Index">
+            Роли</a>
+        </div>
+        <div>
+            <a class="glow-reference-dark"
+               asp-area="Admin"
+               asp-controller="Products"
+               asp-action="Index">
+            Продукты</a>
+        </div>
+    </div>
+}

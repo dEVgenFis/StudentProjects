@@ -20,7 +20,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View();
             }
-            return View("indexdark");
+            return View("IndexDark");
         }
         public IActionResult Buy()
         {
@@ -46,7 +46,7 @@ namespace OnlineShopWebApp.Controllers
             };
             if (!ModelState.IsValid)
             {
-                return View("index");
+                return View("Index");
             }
             ordersStorage.AddOrder(item);
             cart.Items.Clear();

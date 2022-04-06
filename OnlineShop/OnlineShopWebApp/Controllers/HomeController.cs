@@ -24,7 +24,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(сatalog);
             }
-            return View("indexdark", сatalog);
+            return View("IndexDark", сatalog);
         }
         public IActionResult Filtering()
         {
@@ -45,7 +45,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(filteringCatalog);
             }
-            return View("filteringdark", filteringCatalog);
+            return View("FilteringDark", filteringCatalog);
         }
 
         [HttpPost]
@@ -64,13 +64,13 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(filteringCatalog);
             }
-            return View("filteringdark", filteringCatalog);
+            return View("FilteringDark", filteringCatalog);
         }
 
         public IActionResult RemoveSearchWord()
         {
             productsStorage.ResetSearchWord();
-            return RedirectToAction("filtering");
+            return RedirectToAction("Filtering");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return View(item.Products);
             }
-            return View("indexdark", item.Products);
+            return View("IndexDark", item.Products);
         }
         public IActionResult AddProduct(Guid productId)
         {
@@ -34,12 +34,12 @@ namespace OnlineShopWebApp.Controllers
         {
             var product = productsStorage.TryGetProductById(productId);
             comparisonStorage.RemoveProduct(product, Constants.UserId);
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
         public IActionResult Clear()
         {
             comparisonStorage.Clear(Constants.UserId);
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
     }
 }
