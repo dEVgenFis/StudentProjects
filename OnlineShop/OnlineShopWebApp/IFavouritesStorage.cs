@@ -5,8 +5,8 @@ namespace OnlineShopWebApp
     public interface IFavouritesStorage
     {
         Favourites TryGetByUserId(string userId);
-        void AddProduct(Product product, string userId);
-        void RemoveProduct(Product product, string userId);
-        void Clear(string userId);
+        void AddProduct(Product product, Favourites userFavourites);
+        void RemoveProduct(Product product, Favourites userFavourites);
+        void Clear(Favourites userFavourites);
     }
 }

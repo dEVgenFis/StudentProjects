@@ -27,6 +27,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern($"~/admin/orders/details?orderId={orderId}");
             var order = ordersStorage.TryGetByOrderId(orderId);
+            if (order is null) { return NotFound(); }
             if (Constants.Theme == Theme.Light)
             {
                 return View(order);
@@ -37,7 +38,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         [HttpPost]
         public IActionResult UpdateStatus(Guid orderId, OrderStatuses status)
         {
-            ordersStorage.UpdateOrderStatus(orderId, status);
+            ordersStorage.UpdateUserOrderStatus(orderId, status);
             return RedirectToAction("Index");
         }
     }

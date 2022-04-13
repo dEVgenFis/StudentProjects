@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp.Models
 {
@@ -10,24 +11,14 @@ namespace OnlineShopWebApp.Models
         {
             get
             {
-                decimal cost = 0;
-                foreach (var item in Items)
-                {
-                    cost += item.Cost;
-                }
-                return cost;
+                return Items.Sum(item => item.Cost);
             }
         }
         public int Amount
         {
             get
             {
-                int amount = 0;
-                foreach (var item in Items)
-                {
-                    amount += item.Amount;
-                }
-                return amount;
+                return Items.Sum(item => item.Amount);
             }
         }
     }

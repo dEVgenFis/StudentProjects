@@ -53,7 +53,8 @@ namespace OnlineShopWebApp.Areas.Controllers
 
         public IActionResult Remove(string roleName)
         {
-            rolesStorage.RemoveRole(roleName);
+            var role = rolesStorage.TryGetByRoleName(roleName);
+            rolesStorage.RemoveRole(role);
             return RedirectToAction("Index");
         }
     }

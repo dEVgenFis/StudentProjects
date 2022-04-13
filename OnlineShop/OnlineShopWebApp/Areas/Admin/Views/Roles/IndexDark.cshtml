@@ -35,12 +35,28 @@
                             <td class="glow-font-dark">@(i + 1)</td>
                             <td class="glow-font-dark">@Model[i].Name</td>
                             <td>
-                                <a class="glow-reference-dark"
-                                   asp-area="Admin"
-                                   asp-controller="Roles"
-                                   asp-action="Remove"
-                                   asp-route-roleName="@Model[i].Name">
-                                Удалить</a>
+                                <a class="glow-reference-dark" href="#modal_form_@Model[i].Name" data-toggle="modal">Удалить</a>
+                                <div class="modal" id="modal_form_@Model[i].Name" tabindex="-1">
+                                    <div class="modal-dialog" style="top: 25%">
+                                        <div class="modal-content modal-background-dark">
+                                            <div class="modal-header glow-font-dark">
+                                                <h5 class="modal-title">Подтверждение действия</h5>
+                                            </div>
+                                            <div class="modal-body glow-font-dark">
+                                                <p>Вы действительно хотите удалить роль <b>"@Model[i].Name"</b>?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary btn-primary-glow-dark-modal" data-dismiss="modal">Нет!</button>
+                                                <a class="btn btn-warning btn-warning-glow-dark" role="button"
+                                                   asp-area="Admin"
+                                                   asp-controller="Roles"
+                                                   asp-action="Remove"
+                                                   asp-route-roleName="@Model[i].Name">
+                                                Да.</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     }

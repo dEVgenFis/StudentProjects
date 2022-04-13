@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace OnlineShopWebApp.Views.Shared.Components.AddProductToCartFromProductPage
 {
@@ -16,15 +17,7 @@ namespace OnlineShopWebApp.Views.Shared.Components.AddProductToCartFromProductPa
         {
             var product = productsStorage.TryGetProductById(productId);
             var cart = cartsStorage.TryGetByUserId(Constants.UserId);
-            ViewBag.ExistsInCart = false;
-            foreach (var item in cart.Items)
-            {
-                if (item.Product == product)
-                {
-                    ViewBag.ExistsInCart = true;
-                    break;
-                }
-            }
+            ViewBag.ExistsInCart = cart.Items.FirstOrDefault(cartItem => cartItem.Product == product) is null;
             return View("AddProductToCartFromProductPageDark", product);
         }
     }

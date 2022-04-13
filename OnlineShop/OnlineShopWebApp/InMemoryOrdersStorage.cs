@@ -2,6 +2,7 @@
 using OnlineShopWebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp
 {
@@ -14,26 +15,29 @@ namespace OnlineShopWebApp
         }
         public Order TryGetByOrderId(Guid orderId)
         {
-            foreach (var item in orders)
-            {
-                if (item.Id == orderId)
-                {
-                    return item;
-                }
-            }
-            return null;
+            return orders.FirstOrDefault(order => order.Id == orderId);
         }
-        public void AddOrder(Order order)
+        public void AddUserOrder(string userId, Cart userCart, ClientContacts clientContacts, DeliveryAddress deliveryAddress, string clientComment)
         {
-            orders.Add(order);
+            var userOrder = new Order
+            {
+                UserId = userId,
+                Cart = new Cart
+                {
+                    UserId = Constants.UserId,
+                    Items = new List<CartItem>(userCart.Items)
+                },
+                ClientContacts = clientContacts,
+                DeliveryAddress = deliveryAddress,
+                Comment = clientComment,
+                
+            };
+            orders.Add(userOrder);
+            userCart.Items.Clear();
         }
-        public void UpdateOrderStatus(Guid orderId, OrderStatuses newStatus)
+        public void UpdateUserOrderStatus(Guid orderId, OrderStatuses newStatus)
         {
             var order = TryGetByOrderId(orderId);
-            if (order == null)
-            {
-                return;
-            }
             order.Status = newStatus;
         }
     }

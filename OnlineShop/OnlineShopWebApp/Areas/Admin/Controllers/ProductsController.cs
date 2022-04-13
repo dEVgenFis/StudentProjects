@@ -42,7 +42,7 @@ namespace OnlineShopWebApp.Areas.Controllers
             {
                 return View(product);
             }
-            productsStorage.AddWorkLocations(product, locations);
+            productsStorage.AddProductWorkLocations(product, locations);
             productsStorage.AddProduct(product);
             return RedirectToAction("Index");
         }
@@ -66,14 +66,15 @@ namespace OnlineShopWebApp.Areas.Controllers
             {
                 return View(product);
             }
-            productsStorage.AddWorkLocations(product, locations);
+            productsStorage.AddProductWorkLocations(product, locations);
             productsStorage.UpdateProduct(product);
             return RedirectToAction("Index");
         }
 
         public IActionResult Remove(Guid productId)
         {
-            productsStorage.RemoveProduct(productId);
+            var product = productsStorage.TryGetProductById(productId);
+            productsStorage.RemoveProduct(product);
             return RedirectToAction("Index");
         }
     }

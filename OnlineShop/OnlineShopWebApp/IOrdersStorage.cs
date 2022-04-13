@@ -9,7 +9,7 @@ namespace OnlineShopWebApp
     {
         List<Order> GetAllOrders();
         Order TryGetByOrderId(Guid orderId);
-        void AddOrder(Order order);
-        void UpdateOrderStatus(Guid orderId, OrderStatuses newStatus);
+        void AddUserOrder(string userId, Cart userCart, ClientContacts clientContacts, DeliveryAddress deliveryAddress, string clientComment);
+        void UpdateUserOrderStatus(Guid orderId, OrderStatuses newStatus);
     }
 }

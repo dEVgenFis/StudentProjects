@@ -1,46 +1,39 @@
 ﻿using OnlineShopWebApp.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp
 {
     public class InMemoryFavouritesStorage : IFavouritesStorage
     {
-        private List<Favourites> favourites = new List<Favourites>()
-        {
-            new Favourites
-            {
-                UserId = Constants.UserId,
-                Products = new List<Product>()
-            }
-        };
+        private List<Favourites> favourites = new List<Favourites>();
         public Favourites TryGetByUserId(string userId)
         {
-            foreach (var item in favourites)
+            var userFavourites = favourites.FirstOrDefault(item => item.UserId == userId);
+            if (userFavourites is null)
             {
-                if (item.UserId == userId)
-                {
-                    return item;
-                }
+                userFavourites = new Favourites {
+                    UserId = userId,
+                    Products = new List<Product>()
+                };
+                favourites.Add(userFavourites);
             }
-            return null;
+            return userFavourites;
         }
-        public void AddProduct(Product product, string userId)
+        public void AddProduct(Product product, Favourites userFavourites)
         {
-            var item = TryGetByUserId(userId);
-            if (!item.Products.Contains(product))
+            if (!userFavourites.Products.Contains(product))
             {
-                item.Products.Add(product);
+                userFavourites.Products.Add(product);
             }
         }
-        public void RemoveProduct(Product product, string userId)
+        public void RemoveProduct(Product product, Favourites userFavourites)
         {
-            var item = TryGetByUserId(userId);
-            item.Products.Remove(product);
+            userFavourites.Products.Remove(product);
         }
-        public void Clear(string userId)
+        public void Clear(Favourites userFavourites)
         {
-            var item = TryGetByUserId(userId);
-            item.Products.Clear();
+            userFavourites.Products.Clear();
         }
     }
 }

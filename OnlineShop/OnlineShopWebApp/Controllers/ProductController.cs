@@ -15,7 +15,7 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern($"~/product/index?productId={productId}");
             var product = productsStorage.TryGetProductById(productId);
-            if (product is null) return NotFound();
+            if (product is null) { return NotFound(); }
             ViewBag.ProductWorkLocations = productsStorage.GetProductWorkLocations(product);
             if (Constants.Theme == Theme.Light)
             {

@@ -1,86 +1,57 @@
 ﻿using OnlineShopWebApp.Models;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp
 {
     public class InMemoryCartsStorage : ICartsStorage
     {
-        private List<Cart> carts = new List<Cart>()
-        {
-            new Cart
-            {
-                UserId = Constants.UserId,
-                Items = new List<CartItem>()
-            }
-        };
+        private List<Cart> carts = new List<Cart>();
         public Cart TryGetByUserId(string userId)
         {
-            foreach (var item in carts)
+            var userCart = carts.FirstOrDefault(cart => cart.UserId == userId);
+            if (userCart is null)
             {
-                if (item.UserId == userId)
-                {
-                    return item;
-                }
+                userCart = new Cart {
+                    UserId = userId,
+                    Items = new List<CartItem>()
+                };
+                carts.Add(userCart);
             }
-            return null;
+            return userCart;
         }
-        public void Add(Product product, string userId)
+        public void Add(Product product, Cart userCart)
         {
-            var cart = TryGetByUserId(userId);
-            CartItem cartItem = null;
-            foreach (var item in cart.Items)
-            {
-                if (item.Product == product)
-                {
-                    item.Amount += 1;
-                    cartItem = item;
-                    break;
-                }
-            }
+            var cartItem = userCart.Items.FirstOrDefault(item => item.Product == product);
             if (cartItem == null)
             {
-                cart.Items.Add(new CartItem
-                {
+                userCart.Items.Add(new CartItem {
                     Product = product,
                     Amount = 1
                 });
             }
-        }
-        public void DecreaseAmount(Guid productId, string userId)
-        {
-            var cart = TryGetByUserId(userId);
-            CartItem cartItem = null;
-            foreach (var item in cart.Items)
+            else
             {
-                if (item.Product.Id == productId)
-                {
-                    item.Amount -= 1;
-                    cartItem = item;
-                    break;
-                }
+                cartItem.Amount++;
             }
+        }
+        public void DecreaseAmount(Product product, Cart userCart)
+        {
+            var cartItem = userCart.Items.FirstOrDefault(item => item.Product == product);
+            cartItem.Amount--;
             if (cartItem.Amount == 0)
             {
-                cart.Items.Remove(cartItem);
+                userCart.Items.Remove(cartItem);
             }
         }
-        public void RemovePosition(Guid productId, string userId)
+        public void RemovePosition(Product product, Cart userCart)
         {
-            var cart = TryGetByUserId(userId);
-            foreach (var item in cart.Items)
-            {
-                if (item.Product.Id == productId)
-                {
-                    cart.Items.Remove(item);
-                    break;
-                }
-            }
+            var cartItem = userCart.Items.FirstOrDefault(item => item.Product == product);
+            userCart.Items.Remove(cartItem);
         }
-        public void Clear(string userId)
+        public void Clear(Cart userCart)
         {
-            var cart = TryGetByUserId(userId);
-            cart.Items.Clear();
+            userCart.Items.Clear();
         }
     }
 }

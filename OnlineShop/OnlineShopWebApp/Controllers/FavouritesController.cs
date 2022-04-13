@@ -16,28 +16,31 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/favourites/index");
-            var item = favouritesStorage.TryGetByUserId(Constants.UserId);
+            var userFavourites = favouritesStorage.TryGetByUserId(Constants.UserId);
             if (Constants.Theme == Theme.Light)
             {
-                return View(item.Products);
+                return View(userFavourites.Products);
             }
-            return View("IndexDark", item.Products);
+            return View("IndexDark", userFavourites.Products);
         }
         public IActionResult AddProduct(Guid productId)
         {
             var product = productsStorage.TryGetProductById(productId);
-            favouritesStorage.AddProduct(product, Constants.UserId);
+            var userFavourites = favouritesStorage.TryGetByUserId(Constants.UserId);
+            favouritesStorage.AddProduct(product, userFavourites);
             return Redirect(Constants.ReturnPathToCurrentPage);
         }
         public IActionResult RemoveProduct(Guid productId)
         {
             var product = productsStorage.TryGetProductById(productId);
-            favouritesStorage.RemoveProduct(product, Constants.UserId);
+            var userFavourites = favouritesStorage.TryGetByUserId(Constants.UserId);
+            favouritesStorage.RemoveProduct(product, userFavourites);
             return RedirectToAction("Index");
         }
         public IActionResult Clear()
         {
-            favouritesStorage.Clear(Constants.UserId);
+            var userFavourites = favouritesStorage.TryGetByUserId(Constants.UserId);
+            favouritesStorage.Clear(userFavourites);
             return RedirectToAction("Index");
         }
     }

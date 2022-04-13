@@ -15,7 +15,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
-            productsStorage.ResetWorkLocations();
+            productsStorage.ResetSearchWorkLocations();
             var сatalog = productsStorage.GetAllProducts();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.MinCost = productsStorage.MinCost;
@@ -30,13 +30,13 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
             var searchWord = productsStorage.SearchWord;
-            var locations = productsStorage.Locations;
+            var locations = productsStorage.SearchWorkLocations;
             var minCost = productsStorage.SearchMinCost;
             var maxCost = productsStorage.SearchMaxCost;
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost);
             ViewBag.SearchWord = searchWord;
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
-            ViewBag.FilteredLocations = productsStorage.Locations;
+            ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.SearchMinCost = productsStorage.SearchMinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
@@ -53,9 +53,9 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost);
-            ViewBag.SearchWord = searchWord;
+            ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
-            ViewBag.FilteredLocations = productsStorage.Locations;
+            ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.SearchMinCost = productsStorage.SearchMinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;

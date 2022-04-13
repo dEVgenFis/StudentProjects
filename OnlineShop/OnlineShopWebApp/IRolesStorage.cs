@@ -8,6 +8,6 @@ namespace OnlineShopWebApp
         List<Role> GetAllRoles();
         Role TryGetByRoleName(string name);
         void AddRole(Role role);
-        void RemoveRole(string name);
+        void RemoveRole(Role role);
     }
 }

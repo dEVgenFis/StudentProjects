@@ -11,16 +11,17 @@ namespace OnlineShopWebApp
         decimal SearchMinCost { get; set; }
         decimal MaxCost { get; }
         decimal SearchMaxCost { get; set; }
-        string[] Locations { get; set; }
+        string[] SearchWorkLocations { get; set; }
         List<Product> GetAllProducts();
-        List<Product> FilteringProducts(string searchWord, string[] locations, decimal minCost, decimal maxCost);
-        void ResetSearchWord();
-        string GetProductWorkLocations(Product product);
-        void AddWorkLocations(Product product, string[] locations);
-        void ResetWorkLocations();
         Product TryGetProductById(Guid productId);
+        List<Product> FilteringProducts(string searchWord, string[] locations, decimal minCost, decimal maxCost);
         void AddProduct(Product product);
         void UpdateProduct(Product product);
-        void RemoveProduct(Guid productId);
+        void RemoveProduct(Product product);
+        string GetProductWorkLocations(Product product);
+        void AddProductWorkLocations(Product product, string[] locations);
+        void ResetSearchWord();
+        void ResetSearchWorkLocations();
+        
     }
 }

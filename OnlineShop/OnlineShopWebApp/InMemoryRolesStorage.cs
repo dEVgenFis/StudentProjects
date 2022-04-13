@@ -1,5 +1,6 @@
 ﻿using OnlineShopWebApp.Areas.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp
 {
@@ -12,29 +13,15 @@ namespace OnlineShopWebApp
         }
         public Role TryGetByRoleName(string name)
         {
-            foreach (var role in roles)
-            {
-                if (role.Name == name)
-                {
-                    return role;
-                }
-            }
-            return null;
+            return roles.FirstOrDefault(role => role.Name.Equals(name));
         }
         public void AddRole(Role role)
         {
             roles.Add(role);
         }
-        public void RemoveRole(string name)
+        public void RemoveRole(Role role)
         {
-            foreach (var role in roles)
-            {
-                if (role.Name == name)
-                {
-                    roles.Remove(role);
-                    break;
-                }
-            }
+            roles.Remove(role);
         }
     }
 }

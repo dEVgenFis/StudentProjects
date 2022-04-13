@@ -11,12 +11,7 @@ namespace OnlineShopWebApp.Models
         }
         public bool Equals(WorkLocation other)
         {
-            if (other == null)
-                return false;
-            if (this.City == other.City)
-                return true;
-            else
-                return false;
+            return City == other.City;
         }
         public override string ToString()
         {

@@ -1,46 +1,40 @@
 ﻿using OnlineShopWebApp.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp
 {
     public class InMemoryProductsComparisonStorage : IProductsComparisonStorage
     {
-        private List<Comparison> comparisonCatalog = new List<Comparison>
-        {
-            new Comparison
-            {
-                UserId = Constants.UserId,
-                Products = new List<Product>()
-            }
-        };
+        private List<Comparison> productsComparisonCatalog = new List<Comparison>();
         public Comparison TryGetByUserId(string userId)
         {
-            foreach (var item in comparisonCatalog)
+            var userProductsComparisonList = productsComparisonCatalog.FirstOrDefault(item => item.UserId == userId);
+            if (userProductsComparisonList is null)
             {
-                if (item.UserId == userId)
+                userProductsComparisonList = new Comparison
                 {
-                    return item;
-                }
+                    UserId = userId,
+                    Products = new List<Product>()
+                };
+                productsComparisonCatalog.Add(userProductsComparisonList);
             }
-            return null;
+            return userProductsComparisonList;
         }
-        public void AddProduct(Product product, string userId)
+        public void AddProduct(Product product, Comparison userProductsComparisonList)
         {
-            var item = TryGetByUserId(userId);
-            if (!item.Products.Contains(product) && item.Products.Count < 4)
+            if (!userProductsComparisonList.Products.Contains(product) && userProductsComparisonList.Products.Count < 4)
             {
-                item.Products.Add(product);
+                userProductsComparisonList.Products.Add(product);
             }
         }
-        public void RemoveProduct(Product product, string userId)
+        public void RemoveProduct(Product product, Comparison userProductsComparisonList)
         {
-            var item = TryGetByUserId(userId);
-            item.Products.Remove(product);
+            userProductsComparisonList.Products.Remove(product);
         }
-        public void Clear(string userId)
+        public void Clear(Comparison userProductsComparisonList)
         {
-            var item = TryGetByUserId(userId);
-            item.Products.Clear();
+            userProductsComparisonList.Products.Clear();
         }
     }
 }

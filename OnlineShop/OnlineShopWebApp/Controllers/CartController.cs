@@ -16,33 +16,38 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/cart/index");
-            var cart = cartsStorage.TryGetByUserId(Constants.UserId);
+            var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
             if (Constants.Theme == Theme.Light)
             {
-                return View(cart);
+                return View(userCart);
             }
-            return View("IndexDark", cart);
+            return View("IndexDark", userCart);
         }
         public IActionResult Add(Guid productId)
         {
             var product = productsStorage.TryGetProductById(productId);
-            cartsStorage.Add(product, Constants.UserId);
+            var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
+            cartsStorage.Add(product, userCart);
             return Redirect(Constants.ReturnPathToCurrentPage);
         }
         public IActionResult DecreaseAmount(Guid productId)
         {
-            cartsStorage.DecreaseAmount(productId, Constants.UserId);
+            var product = productsStorage.TryGetProductById(productId);
+            var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
+            cartsStorage.DecreaseAmount(product, userCart);
             return RedirectToAction("Index");
         }
         public IActionResult RemovePosition(Guid productId)
         {
             var product = productsStorage.TryGetProductById(productId);
-            cartsStorage.RemovePosition(productId, Constants.UserId);
+            var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
+            cartsStorage.RemovePosition(product, userCart);
             return RedirectToAction("Index");
         }
         public IActionResult Clear()
         {
-            cartsStorage.Clear(Constants.UserId);
+            var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
+            cartsStorage.Clear(userCart);
             return RedirectToAction("Index");
         }
     }

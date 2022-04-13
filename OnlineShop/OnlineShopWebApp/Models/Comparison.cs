@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineShopWebApp.Models
 {
@@ -17,19 +18,7 @@ namespace OnlineShopWebApp.Models
         {
             get
             {
-                if (Products.Count != 0)
-                {
-                    decimal minCost = Products[0].Cost;
-                    for (int i = 1; i < Products.Count; i++)
-                    {
-                        if (Products[i].Cost < minCost)
-                        {
-                            minCost = Products[i].Cost;
-                        }
-                    }
-                    return minCost;
-                }
-                return default;
+                return Products.Count != 0 ? Products.Min(product => product.Cost) : default;
             }
         }
     }

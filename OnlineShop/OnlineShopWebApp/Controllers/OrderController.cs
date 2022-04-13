@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
-using System.Collections.Generic;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -28,28 +27,15 @@ namespace OnlineShopWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Buy(ClientContacts clientContacts, DeliveryAddress deliveryAddress, string comment)
+        public IActionResult Buy(ClientContacts clientContacts, DeliveryAddress deliveryAddress, string clientComment)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/order/buy");
-            var cart = cartsStorage.TryGetByUserId(Constants.UserId);
-            var item = new Order
-            {
-                UserId = Constants.UserId,
-                ClientContacts = clientContacts,
-                DeliveryAddress = deliveryAddress,
-                Comment = comment,
-                Cart = new Cart
-                {
-                    UserId = Constants.UserId,
-                    Items = new List<CartItem>(cart.Items)
-                }
-            };
+            var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
+            ordersStorage.AddUserOrder(Constants.UserId, userCart, clientContacts, deliveryAddress, clientComment);
             if (!ModelState.IsValid)
             {
                 return View("Index");
             }
-            ordersStorage.AddOrder(item);
-            cart.Items.Clear();
             return View();
         }
     }
