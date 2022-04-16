@@ -6,7 +6,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryProductsComparisonStorage : IProductsComparisonStorage
     {
-        private List<Comparison> productsComparisonCatalog = new List<Comparison>();
+        private readonly List<Comparison> productsComparisonCatalog = new List<Comparison>();
         public Comparison TryGetByUserId(string userId)
         {
             var userProductsComparisonList = productsComparisonCatalog.FirstOrDefault(item => item.UserId == userId);

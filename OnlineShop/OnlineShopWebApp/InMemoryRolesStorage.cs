@@ -6,7 +6,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryRolesStorage : IRolesStorage
     {
-        private List<Role> roles = new List<Role>();
+        private readonly List<Role> roles = new List<Role>();
         public List<Role> GetAllRoles()
         {
             return roles;

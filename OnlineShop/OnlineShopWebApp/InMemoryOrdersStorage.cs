@@ -8,7 +8,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryOrdersStorage : IOrdersStorage
     {
-        private List<Order> orders = new List<Order>();
+        private readonly List<Order> orders = new List<Order>();
         public List<Order> GetAllOrders()
         {
             return orders;

@@ -5,7 +5,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryWorkLocationsStorage : IWorkLocationsStorage
     {
-        private List<WorkLocation> workLocations = new List<WorkLocation>
+        private readonly List<WorkLocation> workLocations = new List<WorkLocation>
         {
             new WorkLocation("Самара"),
             new WorkLocation("Кинель"),

@@ -6,17 +6,19 @@
                    asp-area=""
                    asp-controller="Home"
                    asp-action="Index">
-                На главную</a>
-                <a class="btn btn-primary" role="button"
-                   asp-area=""
-                   asp-controller="Account"
-                   asp-action="Login">
-                Войти</a>
+                На главную <i class="bi bi-arrow-counterclockwise"></i></a>
+                <span data-toggle="tooltip" title="Войти в аккаунт">
+                    <a class="btn btn-primary" role="button"
+                       asp-area=""
+                       asp-controller="Account"
+                       asp-action="Login">
+                    <i class="bi bi-key-fill"></i><i class="bi bi-shield-lock"></i></a>
+                </span>
                 <a class="btn btn-dark" role="button"
                    asp-area="Admin"
                    asp-controller="Orders"
                    asp-action="Index">
-                Панель администратора</a>
+                Администрирование <i class="bi bi-hammer"></i></a>
             </div>
             <div style="text-align: right">
                 <div class="d-inline-block">

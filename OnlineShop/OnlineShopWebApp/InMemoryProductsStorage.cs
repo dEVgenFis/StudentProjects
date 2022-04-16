@@ -7,7 +7,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryProductsStorage : IProductsStorage
     {
-        private List<Product> productCatalog = new List<Product>
+        private readonly List<Product> productsCatalog = new List<Product>
         {
             new Product("Иван И.", 8000, new List<WorkLocation> {new WorkLocation("Самара"), new WorkLocation("Кинель"), new WorkLocation("Новокуйбышевск")}, "Сертификат об окончании курсов подготовки кадров по специальности \"Сварочные работы\" № ... от ...", "Сварочный аппарат модели ... № ...", "...", "/images/Ivan.jpg"),
             new Product("Глеб Г.", 3000, new List<WorkLocation> {new WorkLocation("Кинель") }, "", "", "", "/images/Gleb.jpg"),
@@ -15,13 +15,12 @@ namespace OnlineShopWebApp
             new Product("Ирина И.", 3000, new List<WorkLocation> { new WorkLocation("Самара"), new WorkLocation("Тольятти") }, "", "", "", "/images/Irina.jpg"),
             new Product("Кирилл К.", 1100, new List<WorkLocation>(), "", "Сварочный аппарат модели ... № ...", "", "/images/Kirill.jpg")
         };
-        private List<Product> filteredProductCatalog = new List<Product>();
         public string SearchWord { get; set; }
         public decimal MinCost
         {
             get
             {
-                return productCatalog.Count.Equals(0) ? default : productCatalog.Min(product => product.Cost);
+                return productsCatalog.Count.Equals(0) ? default : productsCatalog.Min(product => product.Cost);
             }
         }
         public decimal SearchMinCost { get; set; }
@@ -29,84 +28,40 @@ namespace OnlineShopWebApp
         {
             get
             {
-                return productCatalog.Count.Equals(0) ? default : productCatalog.Max(product => product.Cost);
+                return productsCatalog.Count.Equals(0) ? default : productsCatalog.Max(product => product.Cost);
             }
         }
         public decimal SearchMaxCost { get; set; }
         public string[] SearchWorkLocations { get; set; }
         public List<Product> GetAllProducts()
         {
-            return productCatalog;
+            return productsCatalog;
         }
         public Product TryGetProductById(Guid productId)
         {
-            return productCatalog.FirstOrDefault(product => product.Id == productId);
+            return productsCatalog.FirstOrDefault(product => product.Id == productId);
         }
         public List<Product> FilteringProducts(string searchWord, string[] locations, decimal minCost, decimal maxCost)
         {
-            filteredProductCatalog.Clear();
-            SearchWord = searchWord?.ToLower().Trim();
-            SearchWorkLocations = locations;
-            if (minCost > maxCost)
+            SearchWord = searchWord is null ? string.Empty : searchWord.ToLower().Trim();
+            SearchMinCost = minCost > maxCost ? MinCost : minCost;
+            (SearchMaxCost, SearchWorkLocations) = (maxCost, locations);
+            if (!SearchWorkLocations.Length.Equals(0))
             {
-                SearchMinCost = MinCost;
+                return SearchWorkLocations.Select(location => new WorkLocation(location)).SelectMany(location => productsCatalog.Where(product => product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost).Where(product => product.Name.ToLower().Contains(SearchWord)).Where(product => product.Locations.Contains(location))).Distinct().ToList();
             }
             else
             {
-                SearchMinCost = minCost;
+                return productsCatalog.Where(product => product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost).Where(product => product.Name.ToLower().Contains(SearchWord)).ToList();
             }
-            SearchMaxCost = maxCost;
-            foreach (var product in productCatalog)
-            {
-                if (product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost)
-                {
-                    if (SearchWorkLocations.Length == 0)
-                    {
-                        if (string.IsNullOrEmpty(SearchWord))
-                        {
-                            filteredProductCatalog.Add(product);
-                        }
-                        else
-                        {
-                            if (product.Name.ToLower().Contains(SearchWord))
-                            {
-                                filteredProductCatalog.Add(product);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (var location in SearchWorkLocations)
-                        {
-                            if (product.Locations.Contains(new WorkLocation(location)))
-                            {
-                                if (string.IsNullOrEmpty(SearchWord))
-                                {
-                                    filteredProductCatalog.Add(product);
-                                    break;
-                                }
-                                else
-                                {
-                                    if (product.Name.ToLower().Contains(SearchWord))
-                                    {
-                                        filteredProductCatalog.Add(product);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return filteredProductCatalog;
         }
         public void AddProduct(Product product)
         {
-            productCatalog.Add(product);
+            productsCatalog.Add(product);
         }
         public void UpdateProduct(Product product)
         {
-            var item = productCatalog.First(item => item.Id == product.Id);
+            var item = productsCatalog.First(item => item.Id == product.Id);
             item.Name = product.Name;
             item.Cost = product.Cost;
             item.Locations = product.Locations;
@@ -116,7 +71,7 @@ namespace OnlineShopWebApp
         }
         public void RemoveProduct(Product product)
         {
-            productCatalog.Remove(product);
+            productsCatalog.Remove(product);
         }
         public string GetProductWorkLocations(Product product)
         {

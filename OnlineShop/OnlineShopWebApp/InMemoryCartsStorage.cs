@@ -6,7 +6,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryCartsStorage : ICartsStorage
     {
-        private List<Cart> carts = new List<Cart>();
+        private readonly List<Cart> carts = new List<Cart>();
         public Cart TryGetByUserId(string userId)
         {
             var userCart = carts.FirstOrDefault(cart => cart.UserId == userId);

@@ -6,7 +6,7 @@ namespace OnlineShopWebApp
 {
     public class InMemoryFavouritesStorage : IFavouritesStorage
     {
-        private List<Favourites> favourites = new List<Favourites>();
+        private readonly List<Favourites> favourites = new List<Favourites>();
         public Favourites TryGetByUserId(string userId)
         {
             var userFavourites = favourites.FirstOrDefault(item => item.UserId == userId);
