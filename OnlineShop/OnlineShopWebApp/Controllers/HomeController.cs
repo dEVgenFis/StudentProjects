@@ -16,10 +16,11 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
             productsStorage.ResetSearchWorkLocations();
-            var сatalog = productsStorage.GetAllProducts();
+            var сatalog = productsStorage.GetAllProducts().SortingProducts(Constants.SortingProductsValue);
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
+            ViewBag.SortingProductsValueView = Constants.SortingProductsValueView;
             if (Constants.Theme == Theme.Light)
             {
                 return View(сatalog);
@@ -33,7 +34,7 @@ namespace OnlineShopWebApp.Controllers
             var locations = productsStorage.SearchWorkLocations;
             var minCost = productsStorage.SearchMinCost;
             var maxCost = productsStorage.SearchMaxCost;
-            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost);
+            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).SortingProducts(Constants.SortingProductsValue);
             ViewBag.SearchWord = searchWord;
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -41,6 +42,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.SearchMinCost = productsStorage.SearchMinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SearchMaxCost = productsStorage.SearchMaxCost;
+            ViewBag.SortingProductsValueView = Constants.SortingProductsValueView;
             if (Constants.Theme == Theme.Light)
             {
                 return View(filteringCatalog);
@@ -52,7 +54,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Filtering(string searchWord, string[] locations, decimal minCost, decimal maxCost)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
-            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost);
+            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).SortingProducts(Constants.SortingProductsValue);
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -60,6 +62,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.SearchMinCost = productsStorage.SearchMinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SearchMaxCost = productsStorage.SearchMaxCost;
+            ViewBag.SortingProductsValueView = Constants.SortingProductsValueView;
             if (Constants.Theme == Theme.Light)
             {
                 return View(filteringCatalog);
@@ -71,6 +74,11 @@ namespace OnlineShopWebApp.Controllers
         {
             productsStorage.ResetSearchWord();
             return RedirectToAction("Filtering");
+        }
+        public IActionResult Sorting(int sortingValue)
+        {
+            Constants.SortingProductsValue = sortingValue;
+            return Redirect(Constants.ReturnPathToCurrentPage);
         }
     }
 }
