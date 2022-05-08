@@ -8,13 +8,16 @@
     <div class="row">
         <div class="col-3" style="text-align: left">
             <div class="row justify-content-end">
-                <div style="text-align: center; margin-top: 5px" data-toggle="tooltip" title="Сбросить">
-                    <a style="color: gray"
-                       asp-area=""
-                       asp-controller="Home"
-                       asp-action="RemoveSearchWord">
-                    X</a>
-                </div>
+                @if (!string.IsNullOrEmpty(ViewBag.SearchWord))
+                {
+                    <div style="text-align: center; margin-top: 5px" data-toggle="tooltip" title="Сбросить">
+                        <a style="color: gray"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="RemoveSearchWord">
+                        X</a>
+                    </div>
+                }
                 <div class="col-9" style="padding: 0px 0px 0px 5px; margin-top: 5px">
                     <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" name="searchWord" value="@ViewBag.SearchWord" />
                 </div>
@@ -77,8 +80,18 @@
                 <button class="col-2 offset-10 btn btn-primary btn-sm dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Сортировать по </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
-                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Sorting" asp-route-sortingValue="0"><small>Возрастанию цены</small></a>
-                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Sorting" asp-route-sortingValue="-1"><small>Убыванию цены</small></a>
+                    <a class="dropdown-item"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Sorting"
+                       asp-route-sortingValue="1">
+                    <small>Возрастанию цены</small></a>
+                    <a class="dropdown-item"
+                       asp-area=""
+                       asp-controller="Home"
+                       asp-action="Sorting"
+                       asp-route-sortingValue="-1">
+                    <small>Убыванию цены</small></a>
                 </div>
                 <div class="col-4 offset-8 text-right">
                     <small>@ViewBag.SortingProductsValueView</small>

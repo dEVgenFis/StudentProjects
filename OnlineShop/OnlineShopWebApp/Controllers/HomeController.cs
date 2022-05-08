@@ -16,11 +16,11 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
             productsStorage.ResetSearchWorkLocations();
-            var сatalog = productsStorage.GetAllProducts().SortingProducts(Constants.SortingProductsValue);
+            var сatalog = productsStorage.GetAllProducts().UserSortingProducts(Constants.UserSortingProductsValue);
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
-            ViewBag.SortingProductsValueView = Constants.SortingProductsValueView;
+            ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
             if (Constants.Theme == Theme.Light)
             {
                 return View(сatalog);
@@ -30,11 +30,11 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Filtering()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
-            var searchWord = productsStorage.SearchWord;
+            var searchWord = productsStorage.UserSearchWord;
             var locations = productsStorage.SearchWorkLocations;
             var minCost = productsStorage.SearchMinCost;
             var maxCost = productsStorage.SearchMaxCost;
-            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).SortingProducts(Constants.SortingProductsValue);
+            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).UserSortingProducts(Constants.UserSortingProductsValue);
             ViewBag.SearchWord = searchWord;
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -42,7 +42,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.SearchMinCost = productsStorage.SearchMinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SearchMaxCost = productsStorage.SearchMaxCost;
-            ViewBag.SortingProductsValueView = Constants.SortingProductsValueView;
+            ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
             if (Constants.Theme == Theme.Light)
             {
                 return View(filteringCatalog);
@@ -54,7 +54,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Filtering(string searchWord, string[] locations, decimal minCost, decimal maxCost)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
-            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).SortingProducts(Constants.SortingProductsValue);
+            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).UserSortingProducts(Constants.UserSortingProductsValue);
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -62,7 +62,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.SearchMinCost = productsStorage.SearchMinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SearchMaxCost = productsStorage.SearchMaxCost;
-            ViewBag.SortingProductsValueView = Constants.SortingProductsValueView;
+            ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
             if (Constants.Theme == Theme.Light)
             {
                 return View(filteringCatalog);
@@ -72,12 +72,12 @@ namespace OnlineShopWebApp.Controllers
 
         public IActionResult RemoveSearchWord()
         {
-            productsStorage.ResetSearchWord();
+            productsStorage.ResetUserSearchWord();
             return RedirectToAction("Filtering");
         }
         public IActionResult Sorting(int sortingValue)
         {
-            Constants.SortingProductsValue = sortingValue;
+            Constants.UserSortingProductsValue = sortingValue;
             return Redirect(Constants.ReturnPathToCurrentPage);
         }
     }

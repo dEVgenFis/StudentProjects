@@ -17,13 +17,47 @@ namespace OnlineShopWebApp.Areas.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/index");
-            var сatalog = productsStorage.GetAllProducts();
+            productsStorage.ResetAdminSearchWord();
+            var сatalog = productsStorage.GetAllProducts().AdminSortingProducts(Constants.AdminSortingProductsValue);
+            ViewBag.SearchWord = productsStorage.AdminSearchWord;
+            ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
+            ViewBag.Path = Constants.ReturnPathToCurrentPage;
             if (Constants.Theme == Theme.Light)
             {
                 return View(сatalog);
             }
             return View("IndexDark", сatalog);
         }
+        public IActionResult Search()
+        {
+            Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/search");
+            var searchWord = productsStorage.AdminSearchWord;
+            var сatalog = productsStorage.SearchProductByName(searchWord).AdminSortingProducts(Constants.AdminSortingProductsValue);
+            ViewBag.SearchWord = searchWord;
+            ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
+            ViewBag.Path = Constants.ReturnPathToCurrentPage;
+            if (Constants.Theme == Theme.Light)
+            {
+                return View("Index", сatalog);
+            }
+            return View("IndexDark", сatalog);
+        }
+
+        [HttpPost]
+        public IActionResult Search(string searchWord)
+        {
+            Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/search");
+            var сatalog = productsStorage.SearchProductByName(searchWord).AdminSortingProducts(Constants.AdminSortingProductsValue);
+            ViewBag.SearchWord = searchWord?.Trim();
+            ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
+            ViewBag.Path = Constants.ReturnPathToCurrentPage;
+            if (Constants.Theme == Theme.Light)
+            {
+                return View("Index", сatalog);
+            }
+            return View("IndexDark", сatalog);
+        }
+
         public IActionResult Add()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/add");
@@ -75,7 +109,12 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             var product = productsStorage.TryGetProductById(productId);
             productsStorage.RemoveProduct(product);
-            return RedirectToAction("Index");
+            return Redirect(Constants.ReturnPathToCurrentPage);
+        }
+        public IActionResult Sorting(int sortingValue)
+        {
+            Constants.AdminSortingProductsValue = sortingValue;
+            return Redirect(Constants.ReturnPathToCurrentPage);
         }
     }
 }

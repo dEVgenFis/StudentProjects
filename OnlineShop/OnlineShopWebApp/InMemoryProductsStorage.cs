@@ -15,7 +15,8 @@ namespace OnlineShopWebApp
             new Product("Ирина И.", 3000, new List<WorkLocation> { new WorkLocation("Самара"), new WorkLocation("Тольятти") }, "", "", "", "/images/Irina.jpg"),
             new Product("Кирилл К.", 1100, new List<WorkLocation>(), "", "Сварочный аппарат модели ... № ...", "", "/images/Kirill.jpg")
         };
-        public string SearchWord { get; set; }
+        public string AdminSearchWord { get; set; }
+        public string UserSearchWord { get; set; }
         public decimal MinCost
         {
             get
@@ -41,18 +42,23 @@ namespace OnlineShopWebApp
         {
             return productsCatalog.FirstOrDefault(product => product.Id == productId);
         }
+        public List<Product> SearchProductByName(string searchWord)
+        {
+            AdminSearchWord = searchWord is null ? string.Intern(string.Empty) : searchWord.ToLower().Trim();
+            return productsCatalog.Where(product => product.Name.ToLower().Contains(AdminSearchWord)).ToList();
+        }
         public List<Product> FilteringProducts(string searchWord, string[] locations, decimal minCost, decimal maxCost)
         {
-            SearchWord = searchWord is null ? string.Empty : searchWord.ToLower().Trim();
+            UserSearchWord = searchWord is null ? string.Intern(string.Empty) : searchWord.ToLower().Trim();
             SearchMinCost = minCost > maxCost ? MinCost : minCost;
             (SearchMaxCost, SearchWorkLocations) = (maxCost, locations);
             if (!SearchWorkLocations.Length.Equals(0))
             {
-                return SearchWorkLocations.Select(location => new WorkLocation(location)).SelectMany(location => productsCatalog.Where(product => product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost).Where(product => product.Name.ToLower().Contains(SearchWord)).Where(product => product.Locations.Contains(location))).Distinct().ToList();
+                return SearchWorkLocations.Select(location => new WorkLocation(location)).SelectMany(location => productsCatalog.Where(product => product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost).Where(product => product.Name.ToLower().Contains(UserSearchWord)).Where(product => product.Locations.Contains(location))).Distinct().ToList();
             }
             else
             {
-                return productsCatalog.Where(product => product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost).Where(product => product.Name.ToLower().Contains(SearchWord)).ToList();
+                return productsCatalog.Where(product => product.Cost >= SearchMinCost && product.Cost <= SearchMaxCost).Where(product => product.Name.ToLower().Contains(UserSearchWord)).ToList();
             }
         }
         public void AddProduct(Product product)
@@ -101,12 +107,16 @@ namespace OnlineShopWebApp
                 }
             }
         }
-        public void ResetSearchWord()
+        public void ResetAdminSearchWord()
         {
-            if (string.IsNullOrEmpty(SearchWord)) { return; }
-            SearchWord = default;
+            if (string.IsNullOrEmpty(AdminSearchWord)) { return; }
+            AdminSearchWord = default;
         }
-        
+        public void ResetUserSearchWord()
+        {
+            if (string.IsNullOrEmpty(UserSearchWord)) { return; }
+            UserSearchWord = default;
+        }
         public void ResetSearchWorkLocations()
         {
             if (SearchWorkLocations is null) { return; }
