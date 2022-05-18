@@ -19,7 +19,7 @@
                     </div>
                 }
                 <div class="col-9" style="padding: 0px 0px 0px 5px; margin-top: 5px">
-                    <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" name="searchWord" value="@ViewBag.SearchWord" />
+                    <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" value="@ViewBag.SearchWord" name="searchWord" />
                 </div>
                 <div class="col-2 d-inline-block" style="padding: 0px 0px 0px 5px" data-toggle="tooltip" title="Начать поиск">
                     <button class="btn btn-primary" type="submit"
@@ -33,7 +33,7 @@
             <div><b>Выберите город:</b></div>
             @foreach (var city in ViewBag.AllWorkLocations)
             {
-                if (Array.IndexOf(ViewBag.FilteredLocations, city.ToString()) != -1)
+                if (!Array.IndexOf(ViewBag.FilteredLocations, city.ToString()).Equals(-1))
                 {
                     <div>
                         <input class="work-location" type="checkbox" checked value="@city" name="locations" />@city
@@ -51,13 +51,13 @@
                 <div class="col-6" style="text-align: left; padding: 0px">@ViewBag.MinCost</div>
                 <div class="col-6" style="text-align: right; padding: 0px">@ViewBag.MaxCost</div>
             </div>
-            <input style="width: inherit; padding: 0px" type="range" name="minCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.SearchMinCost" />
+            <input style="width: inherit; padding: 0px" type="range" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.SearchMinCost" name="minCost" />
             <div style="padding-top: 10px"><b>Укажите максимальную стоимость:</b></div>
             <div class="row">
                 <div class="col-6" style="text-align: left; padding: 0px">@ViewBag.MinCost</div>
                 <div class="col-6" style="text-align: right; padding: 0px">@ViewBag.MaxCost</div>
             </div>
-            <input style="width: inherit; padding: 0px 0px 20px 0px" type="range" name="maxCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.SearchMaxCost" />
+            <input style="width: inherit; padding: 0px 0px 20px 0px" type="range" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.SearchMaxCost" name="maxCost" />
             <div class="row justify-content-center">
                 <div style="text-align: center">
                     <button class="btn btn-primary" type="submit"
@@ -97,7 +97,7 @@
                     <small>@ViewBag.SortingProductsValueView</small>
                 </div>
             </div>
-            @if (Model.Count == 0)
+            @if (Model.Count.Equals(0))
             {
                 <div class="row justify-content-center">
                     По вашему запросу ничего не найдено.

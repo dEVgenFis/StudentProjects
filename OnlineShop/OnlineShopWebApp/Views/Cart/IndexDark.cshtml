@@ -1,10 +1,10 @@
 ﻿@model Cart
 
 @{
-    ViewData["Title"] = "Cart";
+    ViewData["Title"] = $"Cart {Model.UserId}";
 }
 
-@if (Model.Items.Count == 0)
+@if (Model.Items.Count.Equals(0))
 {
     <div class="container glow-font-dark text-center">В настоящий момент ваша корзина пуста.</div>
 }

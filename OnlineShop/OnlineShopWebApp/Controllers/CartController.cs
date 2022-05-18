@@ -17,7 +17,7 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/cart/index");
             var userCart = cartsStorage.TryGetByUserId(Constants.UserId);
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(userCart);
             }

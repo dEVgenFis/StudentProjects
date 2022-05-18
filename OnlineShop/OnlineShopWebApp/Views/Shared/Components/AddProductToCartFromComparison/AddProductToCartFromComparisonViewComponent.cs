@@ -17,7 +17,7 @@ namespace OnlineShopWebApp.Views.Shared.Components.AddProductToCartFromCompariso
         {
             var product = productsStorage.TryGetProductById(productId);
             var cart = cartsStorage.TryGetByUserId(Constants.UserId);
-            ViewBag.ExistsInCart = cart.Items.FirstOrDefault(cartItem => cartItem.Product == product) is null;
+            ViewBag.ExistsInCart = cart.Items.FirstOrDefault(cartItem => cartItem.Product.Equals(product)) is null;
             return View("AddProductToCartFromComparison", product);
         }
     }

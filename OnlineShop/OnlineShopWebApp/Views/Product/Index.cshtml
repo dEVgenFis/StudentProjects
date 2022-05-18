@@ -11,11 +11,7 @@
                 <img class="card-img-top box" src=@Model.ImagePath height="300" />
             </p>
             <div style="padding-bottom: 10px">
-                <a class="btn btn-primary"
-                   asp-area=""
-                   asp-controller="Home"
-                   asp-action="Index">
-                <i class="bi bi-arrow-left-short">Продолжить покупки</i></a>
+                <a class="btn btn-primary" href="javascript: history.length > 1 ? history.go(-1) : null"><i class="bi bi-arrow-left-short"> Назад</i></a>
             </div>
             <div style="margin-bottom: 10px">
                 @await Component.InvokeAsync("AddProductToComparison", Model.Id)

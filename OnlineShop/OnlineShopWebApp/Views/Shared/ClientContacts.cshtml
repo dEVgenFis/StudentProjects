@@ -1,10 +1,10 @@
 ﻿@model ClientContacts
 
 <fieldset style="background-color: rgba(225, 239, 242, 0.7); border-radius: 10px">
-    <legend>Контактные данные заказчика</legend>
+    <legend>Контактные данные получателя</legend>
     <div class="row align-items-center">
         <div class="col-4 offset-4" style="text-align: center; padding-bottom: 5px">
-            <input style="text-align: center; width: 70%" placeholder="Введите имя" autofocus asp-for="FirstName" />
+            <input style="text-align: center; width: 70%" placeholder="Введите имя" asp-for="FirstName" />
         </div>
         <div class="col-4" style="text-align: left">
             <span asp-validation-for="FirstName" />
