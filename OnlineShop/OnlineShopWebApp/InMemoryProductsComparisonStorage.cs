@@ -9,7 +9,7 @@ namespace OnlineShopWebApp
         private readonly List<Comparison> productsComparisonCatalog = new List<Comparison>();
         public Comparison TryGetByUserId(string userId)
         {
-            var userProductsComparisonList = productsComparisonCatalog.FirstOrDefault(item => item.UserId == userId);
+            var userProductsComparisonList = productsComparisonCatalog.FirstOrDefault(item => item.UserId.Equals(userId));
             if (userProductsComparisonList is null)
             {
                 userProductsComparisonList = new Comparison

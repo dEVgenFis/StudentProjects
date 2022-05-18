@@ -15,10 +15,9 @@ namespace OnlineShopWebApp
             Host.CreateDefaultBuilder(args)
             .UseSerilog((hostingContext, loggerConfiguration) =>
             {
-                loggerConfiguration
-                .ReadFrom.Configuration(hostingContext.Configuration)
-                .Enrich.FromLogContext()
-                .Enrich.WithProperty("ApplicationName", "OnlineShop");
+                loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration)
+                                   .Enrich.FromLogContext()
+                                   .Enrich.WithProperty("ApplicationName", "OnlineShop");
             })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

@@ -6,16 +6,22 @@ namespace OnlineShopWebApp.Areas.Models
     {
         [Display(Name = "Создан")]
         Created,
-        [Display(Name = "Обработан")]
+        [Display(Name = "В обработке")]
         Processed,
-        [Display(Name = "Изготавливается")]
+        [Display(Name = "Выполняется")]
         Making,
-        [Display(Name = "Изготовлен")]
+        [Display(Name = "Приостановлен")]
+        Paused,
+        [Display(Name = "Готов")]
         Made,
         [Display(Name = "В пути")]
         Delivering,
         [Display(Name = "Доставлен")]
         Delivered,
+        [Display(Name = "Ожидает завершения")]
+        Wait,
+        [Display(Name = "Завершён")]
+        Сompleted,
         [Display(Name = "Отменён")]
         Cancelled
     }

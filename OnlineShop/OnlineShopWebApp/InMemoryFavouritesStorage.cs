@@ -9,7 +9,7 @@ namespace OnlineShopWebApp
         private readonly List<Favourites> favourites = new List<Favourites>();
         public Favourites TryGetByUserId(string userId)
         {
-            var userFavourites = favourites.FirstOrDefault(item => item.UserId == userId);
+            var userFavourites = favourites.FirstOrDefault(item => item.UserId.Equals(userId));
             if (userFavourites is null)
             {
                 userFavourites = new Favourites {

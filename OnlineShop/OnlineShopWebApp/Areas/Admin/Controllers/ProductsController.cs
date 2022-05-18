@@ -18,7 +18,8 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/index");
             productsStorage.ResetAdminSearchWord();
-            var сatalog = productsStorage.GetAllProducts().AdminSortingProducts(Constants.AdminSortingProductsValue);
+            var сatalog = productsStorage.GetAllProducts()
+                                         .AdminSortingProducts(Constants.AdminSortingProductsValue);
             ViewBag.SearchWord = productsStorage.AdminSearchWord;
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
@@ -32,7 +33,8 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/search");
             var searchWord = productsStorage.AdminSearchWord;
-            var сatalog = productsStorage.SearchProductByName(searchWord).AdminSortingProducts(Constants.AdminSortingProductsValue);
+            var сatalog = productsStorage.SearchProductByName(searchWord)
+                                         .AdminSortingProducts(Constants.AdminSortingProductsValue);
             ViewBag.SearchWord = searchWord;
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
@@ -47,7 +49,8 @@ namespace OnlineShopWebApp.Areas.Controllers
         public IActionResult Search(string searchWord)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/search");
-            var сatalog = productsStorage.SearchProductByName(searchWord).AdminSortingProducts(Constants.AdminSortingProductsValue);
+            var сatalog = productsStorage.SearchProductByName(searchWord)
+                                         .AdminSortingProducts(Constants.AdminSortingProductsValue);
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
             ViewBag.Path = Constants.ReturnPathToCurrentPage;

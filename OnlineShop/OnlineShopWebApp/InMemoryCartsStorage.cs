@@ -9,7 +9,7 @@ namespace OnlineShopWebApp
         private readonly List<Cart> carts = new List<Cart>();
         public Cart TryGetByUserId(string userId)
         {
-            var userCart = carts.FirstOrDefault(cart => cart.UserId == userId);
+            var userCart = carts.FirstOrDefault(cart => cart.UserId.Equals(userId));
             if (userCart is null)
             {
                 userCart = new Cart {
@@ -22,8 +22,8 @@ namespace OnlineShopWebApp
         }
         public void Add(Product product, Cart userCart)
         {
-            var cartItem = userCart.Items.FirstOrDefault(item => item.Product == product);
-            if (cartItem == null)
+            var cartItem = userCart.Items.FirstOrDefault(item => item.Product.Equals(product));
+            if (cartItem is null)
             {
                 userCart.Items.Add(new CartItem {
                     Product = product,
@@ -37,16 +37,16 @@ namespace OnlineShopWebApp
         }
         public void DecreaseAmount(Product product, Cart userCart)
         {
-            var cartItem = userCart.Items.FirstOrDefault(item => item.Product == product);
+            var cartItem = userCart.Items.FirstOrDefault(item => item.Product.Equals(product));
             cartItem.Amount--;
-            if (cartItem.Amount == 0)
+            if (cartItem.Amount.Equals(0))
             {
                 userCart.Items.Remove(cartItem);
             }
         }
         public void RemovePosition(Product product, Cart userCart)
         {
-            var cartItem = userCart.Items.FirstOrDefault(item => item.Product == product);
+            var cartItem = userCart.Items.FirstOrDefault(item => item.Product.Equals(product));
             userCart.Items.Remove(cartItem);
         }
         public void Clear(Cart userCart)
