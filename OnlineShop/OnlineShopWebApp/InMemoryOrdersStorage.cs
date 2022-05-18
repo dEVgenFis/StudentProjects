@@ -15,7 +15,7 @@ namespace OnlineShopWebApp
         }
         public Order TryGetByOrderId(Guid orderId)
         {
-            return orders.FirstOrDefault(order => order.Id == orderId);
+            return orders.FirstOrDefault(order => order.Id.Equals(orderId));
         }
         public void AddUserOrder(string userId, Cart userCart, ClientContacts clientContacts, DeliveryAddress deliveryAddress, string clientComment)
         {

@@ -16,7 +16,8 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
             productsStorage.ResetSearchWorkLocations();
-            var сatalog = productsStorage.GetAllProducts().UserSortingProducts(Constants.UserSortingProductsValue);
+            var сatalog = productsStorage.GetAllProducts()
+                                         .UserSortingProducts(Constants.UserSortingProductsValue);
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
@@ -34,7 +35,8 @@ namespace OnlineShopWebApp.Controllers
             var locations = productsStorage.SearchWorkLocations;
             var minCost = productsStorage.SearchMinCost;
             var maxCost = productsStorage.SearchMaxCost;
-            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).UserSortingProducts(Constants.UserSortingProductsValue);
+            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
+                                                  .UserSortingProducts(Constants.UserSortingProductsValue);
             ViewBag.SearchWord = searchWord;
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -54,7 +56,8 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Filtering(string searchWord, string[] locations, decimal minCost, decimal maxCost)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
-            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).UserSortingProducts(Constants.UserSortingProductsValue);
+            var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
+                                                  .UserSortingProducts(Constants.UserSortingProductsValue);
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;

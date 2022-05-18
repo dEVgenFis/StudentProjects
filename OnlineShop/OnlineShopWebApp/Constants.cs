@@ -20,12 +20,14 @@ namespace OnlineShopWebApp
             if (sortingValue < 0)
             {
                 AdminSortingProductsValueView = string.Intern("убыванию цены");
-                return products.OrderByDescending(product => product.Cost).ToList();
+                return products.OrderByDescending(product => product.Cost)
+                               .ToList();
             }
             else
             {
                 AdminSortingProductsValueView = string.Intern("возрастанию цены");
-                return products.OrderBy(product => product.Cost).ToList();
+                return products.OrderBy(product => product.Cost)
+                               .ToList();
             }
         }
         public static List<Product> UserSortingProducts(this List<Product> products, int sortingValue)
@@ -34,12 +36,14 @@ namespace OnlineShopWebApp
             if (sortingValue < 0)
             {
                 UserSortingProductsValueView = string.Intern("убыванию цены");
-                return products.OrderByDescending(product => product.Cost).ToList();
+                return products.OrderByDescending(product => product.Cost)
+                               .ToList();
             }
             else
             {
                 UserSortingProductsValueView = string.Intern("возрастанию цены");
-                return products.OrderBy(product => product.Cost).ToList();
+                return products.OrderBy(product => product.Cost)
+                               .ToList();
             }
         }
     }

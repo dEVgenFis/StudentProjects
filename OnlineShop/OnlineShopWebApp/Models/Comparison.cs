@@ -18,7 +18,7 @@ namespace OnlineShopWebApp.Models
         {
             get
             {
-                return Products.Count != 0 ? Products.Min(product => product.Cost) : default;
+                return !Products.Count.Equals(0) ? Products.Min(product => product.Cost) : default;
             }
         }
     }
