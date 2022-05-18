@@ -2,12 +2,11 @@
 
 @if (!ViewBag.Comparison.Contains(Model))
 {
-    if (ViewBag.Comparison.Count == 4)
+    if (ViewBag.Comparison.Count.Equals(4))
     {
         <span data-toggle="tooltip" title="Не более 4-х продуктов для сравнения">
             <button type="button" class="btn btn-light" disabled>
-                <i class="bi bi-bar-chart">+</i>
-            </button>
+            <i class="bi bi-bar-chart">+</i></button>
         </span>
     }
     else

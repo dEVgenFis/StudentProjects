@@ -17,11 +17,11 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/favourites/index");
             var userFavourites = favouritesStorage.TryGetByUserId(Constants.UserId);
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
-                return View(userFavourites.Products);
+                return View(userFavourites);
             }
-            return View("IndexDark", userFavourites.Products);
+            return View("IndexDark", userFavourites);
         }
         public IActionResult AddProduct(Guid productId)
         {

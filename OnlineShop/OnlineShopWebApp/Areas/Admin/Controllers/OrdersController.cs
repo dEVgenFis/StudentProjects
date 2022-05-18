@@ -17,7 +17,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/orders/index");
             var orders = ordersStorage.GetAllOrders();
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(orders);
             }
@@ -28,7 +28,7 @@ namespace OnlineShopWebApp.Areas.Controllers
             Constants.ReturnPathToCurrentPage = string.Intern($"~/admin/orders/details?orderId={orderId}");
             var order = ordersStorage.TryGetByOrderId(orderId);
             if (order is null) { return NotFound(); }
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(order);
             }

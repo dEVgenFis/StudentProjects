@@ -15,7 +15,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/order/index");
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View();
             }

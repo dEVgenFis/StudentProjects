@@ -22,7 +22,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(сatalog);
             }
@@ -45,7 +45,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SearchMaxCost = productsStorage.SearchMaxCost;
             ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(filteringCatalog);
             }
@@ -66,7 +66,7 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SearchMaxCost = productsStorage.SearchMaxCost;
             ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(filteringCatalog);
             }

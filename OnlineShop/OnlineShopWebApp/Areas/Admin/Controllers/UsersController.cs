@@ -9,7 +9,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         public IActionResult Index()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/users/index");
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View();
             }

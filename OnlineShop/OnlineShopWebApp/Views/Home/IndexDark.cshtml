@@ -32,13 +32,13 @@
                 <div class="col-6" style="text-align: left; padding: 0px">@ViewBag.MinCost</div>
                 <div class="col-6" style="text-align: right; padding: 0px">@ViewBag.MaxCost</div>
             </div>
-            <input style="width: inherit; padding: 0px" type="range" name="minCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MinCost" />
+            <input style="width: inherit; padding: 0px" type="range" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MinCost" name="minCost" />
             <div class="glow-reference-dark" style="padding-top: 10px"><b>Укажите максимальную стоимость:</b></div>
             <div class="row">
                 <div class="col-6" style="text-align: left; padding: 0px">@ViewBag.MinCost</div>
                 <div class="col-6" style="text-align: right; padding: 0px">@ViewBag.MaxCost</div>
             </div>
-            <input style="width: inherit; padding: 0px 0px 20px 0px" type="range" name="maxCost" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MaxCost" />
+            <input style="width: inherit; padding: 0px 0px 20px 0px" type="range" min="@ViewBag.MinCost" max="@ViewBag.MaxCost" value="@ViewBag.MaxCost" name="maxCost" />
             <div class="row justify-content-center">
                 <div style="text-align: center">
                     <button class="btn btn-primary btn-primary-glow-dark" type="submit"
@@ -78,7 +78,7 @@
                     <small>@ViewBag.SortingProductsValueView</small>
                 </div>
             </div>
-            @if (Model.Count == 0)
+            @if (Model.Count.Equals(0))
             {
                 <div class="row justify-content-center glow-font-dark">
                     В настоящий момент товары отсутствуют.

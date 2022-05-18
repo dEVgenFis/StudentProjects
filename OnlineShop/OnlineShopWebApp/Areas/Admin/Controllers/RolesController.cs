@@ -16,7 +16,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/roles/index");
             var roles = rolesStorage.GetAllRoles();
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(roles);
             }
@@ -25,7 +25,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         public IActionResult Add()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/roles/add");
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View();
             }
@@ -44,7 +44,7 @@ namespace OnlineShopWebApp.Areas.Controllers
                 rolesStorage.AddRole(role);
                 return RedirectToAction("Index");
             }
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View("Add", role);
             }

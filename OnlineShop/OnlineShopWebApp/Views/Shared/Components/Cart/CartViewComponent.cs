@@ -13,7 +13,7 @@ namespace OnlineShopWebApp.Views.Shared.Component.Cart
         public IViewComponentResult Invoke()
         {
             var cart = cartsStorage.TryGetByUserId(Constants.UserId);
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View("Cart", cart.Amount);
             }

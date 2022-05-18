@@ -13,7 +13,7 @@ namespace OnlineShopWebApp.Views.Shared.Components.Comparison
         public IViewComponentResult Invoke()
         {
             var item = comparisonStorage.TryGetByUserId(Constants.UserId);
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View("Comparison", item.Amount);
             }

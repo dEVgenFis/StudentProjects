@@ -23,7 +23,7 @@ namespace OnlineShopWebApp.Areas.Controllers
             ViewBag.SearchWord = productsStorage.AdminSearchWord;
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(сatalog);
             }
@@ -38,7 +38,7 @@ namespace OnlineShopWebApp.Areas.Controllers
             ViewBag.SearchWord = searchWord;
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View("Index", сatalog);
             }
@@ -54,7 +54,7 @@ namespace OnlineShopWebApp.Areas.Controllers
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View("Index", сatalog);
             }
@@ -65,7 +65,7 @@ namespace OnlineShopWebApp.Areas.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/add");
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View();
             }
@@ -89,7 +89,7 @@ namespace OnlineShopWebApp.Areas.Controllers
             Constants.ReturnPathToCurrentPage = string.Intern($"~/admin/products/edit?productId={productId}");
             var product = productsStorage.TryGetProductById(productId);
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(product);
             }

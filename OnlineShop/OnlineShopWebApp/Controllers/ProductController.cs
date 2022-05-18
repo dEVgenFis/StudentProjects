@@ -17,7 +17,7 @@ namespace OnlineShopWebApp.Controllers
             var product = productsStorage.TryGetProductById(productId);
             if (product is null) { return NotFound(); }
             ViewBag.ProductWorkLocations = productsStorage.GetProductWorkLocations(product);
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(product);
             }

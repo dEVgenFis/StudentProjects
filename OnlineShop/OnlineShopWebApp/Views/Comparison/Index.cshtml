@@ -1,10 +1,10 @@
-﻿@model List<Product>
+﻿@model Comparison
 
 @{
-    ViewData["Title"] = "Comparison";
+    ViewData["Title"] = $"Comparison {Model.UserId}";
 }
 
-@if (Model.Count == 0)
+@if (Model.Products.Count.Equals(0))
 {
     <div class="container text-center">В настоящий момент у вас отсутствуют товары для сравнения.</div><br />
     <div class="container text-center">Обратите внимание: раздел Сравнение одновременно может содержать <b><i>не более</i></b> 4-х продуктов.</div>
@@ -15,7 +15,7 @@ else
         <thead>
             <tr>
                 <th style="width: 400px"></th>
-                @foreach (var product in Model)
+                @foreach (var product in Model.Products)
                 {
                     <td>
                         <div class="card shadow" style="text-align: center; width: 145px; border: 1px solid; margin: 5px">
@@ -57,10 +57,10 @@ else
                 <th style="padding: 20px">
                     <div style="text-align: justify">Стоимость услуги, руб.</div>
                 </th>
-                @foreach (var product in Model)
+                @foreach (var product in Model.Products)
                 {
                     <td style="text-align: center; padding: 20px; margin: 5px">
-                        @if (product.Cost == ViewBag.MinCost)
+                        @if (product.Cost.Equals(ViewBag.MinCost))
                         {
                             <div style="color: #22e138">
                                 @product.Cost
@@ -79,7 +79,7 @@ else
                 <th style="padding: 20px">
                     <div style="text-align: justify">Документы</div>
                 </th>
-                @foreach (var product in Model)
+                @foreach (var product in Model.Products)
                 {
                     <td style="text-align: center; padding: 20px; margin: 5px">
                         <div style="color: #22e138; font-size: x-large">
@@ -95,7 +95,7 @@ else
                 <th style="padding: 20px">
                     <div style="text-align: justify">Оборудование</div>
                 </th>
-                @foreach (var product in Model)
+                @foreach (var product in Model.Products)
                 {
                     <td style="text-align: center; padding: 20px; margin: 5px">
                         <div style="color: #22e138; font-size: x-large">

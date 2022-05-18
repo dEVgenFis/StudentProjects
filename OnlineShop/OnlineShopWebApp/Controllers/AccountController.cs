@@ -8,7 +8,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Login()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/account/login");
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View();
             }
@@ -28,7 +28,7 @@ namespace OnlineShopWebApp.Controllers
         public IActionResult Register()
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/account/register");
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View();
             }
@@ -46,7 +46,7 @@ namespace OnlineShopWebApp.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
                 return View(register);
             }

@@ -18,11 +18,11 @@ namespace OnlineShopWebApp.Controllers
             Constants.ReturnPathToCurrentPage = string.Intern("~/comparison/index");
             var userProductsComparisonList = comparisonStorage.TryGetByUserId(Constants.UserId);
             ViewBag.MinCost = userProductsComparisonList.MinCost;
-            if (Constants.Theme == Theme.Light)
+            if (Constants.Theme.Equals(Theme.Light))
             {
-                return View(userProductsComparisonList.Products);
+                return View(userProductsComparisonList);
             }
-            return View("IndexDark", userProductsComparisonList.Products);
+            return View("IndexDark", userProductsComparisonList);
         }
         public IActionResult AddProduct(Guid productId)
         {
