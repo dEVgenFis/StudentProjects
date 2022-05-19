@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model PageNumberView
 
 @{
     ViewData["Title"] = "Главная";
@@ -97,7 +97,7 @@
                     <small>@ViewBag.SortingProductsValueView</small>
                 </div>
             </div>
-            @if (Model.Count.Equals(0))
+            @if (Model.Products.Count.Equals(0))
             {
                 <div class="row justify-content-center">
                     По вашему запросу ничего не найдено.
@@ -106,7 +106,7 @@
             else
             {
                 <div class="row justify-content-center">
-                    @foreach (var product in Model)
+                    @foreach (var product in Model.Products)
                     {
                         <div class="col-2 card shadow" style="text-align: center; border: 1px solid; padding: 0px; margin: 5px">
                             <div style="text-align: right; padding: 5px 10px 5px 0px">
