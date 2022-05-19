@@ -17,7 +17,7 @@ namespace OnlineShopWebApp.Controllers
         {
             Constants.ReturnPathToCurrentPage = string.Intern($"~/home/index?page={page}");
             productsStorage.ResetSearchWorkLocations();
-            int pageSize = 4;
+            int pageSize = 5;
             var сatalog = productsStorage.GetAllProducts()
                                          .UserSortingProducts(Constants.UserSortingProductsValue)
                                          .Skip((page - 1) * pageSize)
@@ -46,8 +46,8 @@ namespace OnlineShopWebApp.Controllers
         }
         public IActionResult Filtering(int page = 1)
         {
-            Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
-            int pageSize = 4;
+            Constants.ReturnPathToCurrentPage = string.Intern($"~/home/filtering?page={page}");
+            int pageSize = 5;
             var searchWord = productsStorage.UserSearchWord;
             var locations = productsStorage.SearchWorkLocations;
             var minCost = productsStorage.SearchMinCost;
@@ -86,8 +86,8 @@ namespace OnlineShopWebApp.Controllers
         [HttpPost]
         public IActionResult Filtering(string searchWord, string[] locations, decimal minCost, decimal maxCost, int page = 1)
         {
-            Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
-            int pageSize = 4;
+            Constants.ReturnPathToCurrentPage = string.Intern($"~/home/filtering?page={page}");
+            int pageSize = 5;
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
                                                   .UserSortingProducts(Constants.UserSortingProductsValue)
                                                   .Skip((page - 1) * pageSize)

@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model PageNumberView
 
 @{
     ViewData["Title"] = "AdminProducts";
@@ -9,67 +9,90 @@
         @await Html.PartialAsync("AdminLeftMenu")
         <div class="col-10">
             <div class="row" style="padding-bottom: 10px">
-                <div class="col-6" style="text-align: start; padding-left: 0px">
-                    <div class="col-12">
-                        <h3 style="margin-bottom: 0px">Список продуктов</h3>
+                <div class="col-12" style="height: 70px">
+                    <div class="row" style="padding-bottom: 5px">
+                        <div class="col-6" style="text-align: start">
+                            <h3 style="margin-bottom: 0px">Список продуктов</h3>
+                        </div>
+                        <div class="col-6">
+                            <div class="row justify-content-end">
+                                @if (!string.IsNullOrEmpty(ViewBag.SearchWord))
+                                {
+                                    <div style="text-align: center; margin-top: 8px" data-toggle="tooltip" title="Сбросить">
+                                        <a
+                                           asp-area="Admin"
+                                           asp-controller="Products"
+                                           asp-action="Index">
+                                        X</a>
+                                    </div>
+                                }
+                                <div class="col-5" style="padding: 0px 0px 0px 5px; margin-top: 8px">
+                                    <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" value="@ViewBag.SearchWord" name="searchWord" />
+                                </div>
+                                <div style="padding: 0px 5px 0px 5px; margin-top: 6px" data-toggle="tooltip" title="Начать поиск">
+                                    <button class="btn btn-sm btn-primary" type="submit"
+                                        asp-area="Admin"
+                                        asp-controller="Products"
+                                        asp-action="Search">
+                                    <i class="bi bi-search"></i></button>
+                                </div>
+                                <div class="col-4" style="padding: 0px 0px 0px 0px; margin-top: 6px">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Сортировать по</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
+                                        <a class="dropdown-item"
+                                           asp-area="Admin"
+                                           asp-controller="Products"
+                                           asp-action="Sorting"
+                                           asp-route-sortingValue="1">
+                                        <small>Возрастанию цены</small></a>
+                                        <a class="dropdown-item"
+                                           asp-area="Admin"
+                                           asp-controller="Products"
+                                           asp-action="Sorting"
+                                           asp-route-sortingValue="-1">
+                                        <small>Убыванию цены</small></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <a
-                           asp-area="Admin"
-                           asp-controller="Products"
-                           asp-action="Add">
-                        Добавить новый продукт</a>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="row justify-content-end">
-                        @if (!string.IsNullOrEmpty(ViewBag.SearchWord))
+                    <div class="row">
+                        <div class="col-3" style="text-align: start">
+                            <a
+                               asp-area="Admin"
+                               asp-controller="Products"
+                               asp-action="Add">
+                            Добавить новый продукт</a>
+                        </div>
+                        @if (!Model.Products.Count.Equals(0))
                         {
-                            <div style="text-align: center; margin-top: 8px" data-toggle="tooltip" title="Сбросить">
-                                <a style="color: gray"
-                                   asp-area="Admin"
-                                   asp-controller="Products"
-                                   asp-action="Index">
-                                X</a>
-                            </div>
+                            @if (ViewBag.Path.Contains("index"))
+                            {
+                                <div class="col-6 btn-group-sm text-sm-center">
+                                    @Html.PageLinks(Model.PageInfo, pageNumber => Url.Action("Index", new { page = pageNumber }))
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-6 btn-group-sm text-sm-center">
+                                    @Html.PageLinks(Model.PageInfo, pageNumber => Url.Action("Search", new { page = pageNumber }))
+                                </div>
+                            }
                         }
-                        <div class="col-5" style="padding: 0px 0px 0px 5px; margin-top: 8px">
-                            <input type="text" style="text-align: center; width: 100%" placeholder="Поиск по имени" value="@ViewBag.SearchWord" name="searchWord" />
-                        </div>
-                        <div style="padding: 0px 5px 0px 5px; margin-top: 6px" data-toggle="tooltip" title="Начать поиск">
-                            <button class="btn btn-sm btn-primary" type="submit"
-                                asp-area="Admin"
-                                asp-controller="Products"
-                                asp-action="Search">
-                            <i class="bi bi-search"></i></button>
-                        </div>
-                        <div class="col-4" style="padding: 0px 0px 0px 0px; margin-top: 6px">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Сортировать по </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
-                                <a class="dropdown-item"
-                                   asp-area="Admin"
-                                   asp-controller="Products"
-                                   asp-action="Sorting"
-                                   asp-route-sortingValue="1">
-                                <small>Возрастанию цены</small></a>
-                                <a class="dropdown-item"
-                                   asp-area="Admin"
-                                   asp-controller="Products"
-                                   asp-action="Sorting"
-                                   asp-route-sortingValue="-1">
-                                <small>Убыванию цены</small></a>
+                        else
+                        {
+                            <div class="col-6"></div>
+                        }
+                        <div class="col-3">
+                            <div class="col-12" style="text-align: right">
+                                <small>@ViewBag.SortingProductsValueView</small>
                             </div>
                         </div>
-                    </div>
-                    <div class="row justify-content-end">
-                        <div class="col-4 offset-5" style="text-align: right">
-                            <small>@ViewBag.SortingProductsValueView</small>
-                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
             </div>
-            @if (Model.Count.Equals(0))
+            @if (Model.Products.Count.Equals(0))
             {
                 if (ViewBag.Path.Contains("index"))
                 {
@@ -97,38 +120,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (int i = 0; i < Model.Count; i++)
+                        @for (int i = 0; i < Model.Products.Count; i++)
                         {
                             <tr>
-                                <td>@(i + 1)</td>
+                                <td>@(ViewBag.Catalog.IndexOf(Model.Products[i]) + 1)</td>
                                 <td>
                                     <a
                                        asp-area=""
                                        asp-controller="Product"
                                        asp-action="Index"
-                                       asp-route-productId="@Model[i].Id">
-                                    @Model[i].Name</a>
+                                       asp-route-productId="@Model.Products[i].Id">
+                                    @Model.Products[i].Name</a>
                                 </td>
                                 <td>Изготовление велосипедной рамы</td>
-                                <td>@Model[i].Cost</td>
+                                <td>@Model.Products[i].Cost</td>
                                 <td>
                                     <a
                                        asp-area="Admin"
                                        asp-controller="Products"
                                        asp-action="Edit"
-                                       asp-route-productId="@Model[i].Id">
+                                       asp-route-productId="@Model.Products[i].Id">
                                     Редактировать</a>
                                 </td>
                                 <td>
-                                    <a href="#modal_form_@Model[i].Id" data-toggle="modal">Удалить</a>
-                                    <div class="modal" id="modal_form_@Model[i].Id" tabindex="-1">
+                                    <a href="#modal_form_@Model.Products[i].Id" data-toggle="modal">Удалить</a>
+                                    <div class="modal" id="modal_form_@Model.Products[i].Id" tabindex="-1">
                                         <div class="modal-dialog" style="top: 25%">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Подтверждение действия</h5>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Вы действительно хотите удалить товар <b>"@Model[i].Name"</b>?</p>
+                                                    <p>Вы действительно хотите удалить товар <b>"@Model.Products[i].Name"</b>?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Нет!</button>
@@ -136,7 +159,7 @@
                                                        asp-area="Admin"
                                                        asp-controller="Products"
                                                        asp-action="Remove"
-                                                       asp-route-productId="@Model[i].Id">
+                                                       asp-route-productId="@Model.Products[i].Id">
                                                     Да.</a>
                                                 </div>
                                             </div>
