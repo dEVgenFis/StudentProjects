@@ -171,10 +171,27 @@ body {
 .btn-primary-glow-dark-modal:hover {
     background-color: black;
     color: #7cb8fc;
+    box-shadow: none;
 }
 .work-location {
     margin-right: 5px;
 }
 #space-between-work-locations {
     margin-right: 20px;
+}
+.begin-last-page-border {
+    border: 1px solid;
+}
+.begin-last-page-border-box-glow-dark {
+    border: 1px solid #1b6ec2;
+    box-shadow: 2px 0px 2px #1b6ec2, -2px 0px 2px #1b6ec2, 0px 2px 2px #1b6ec2, 0px -1px 1px #1b6ec2, 3px 0px 5px #1b6ec2, -3px 0px 5px #1b6ec2, 0px 3px 5px #1b6ec2, 0px -1px 9px #1b6ec2;
+}
+.border-box-none {
+    border: none;
+    box-shadow: none;
+}
+.glow-reference-pagination-dark {
+    color: white;
+    text-shadow: 2px 0px 2px #1b6ec2, -2px 0px 2px #1b6ec2, 0px 2px 2px #1b6ec2, 0px -1px 1px #1b6ec2, 3px 0px 5px #1b6ec2, -3px 0px 5px #1b6ec2, 0px 3px 5px #1b6ec2, 0px -1px 9px #1b6ec2;
+    font-weight: bold;
 }

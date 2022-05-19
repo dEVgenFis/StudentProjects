@@ -15,14 +15,14 @@ namespace OnlineShopWebApp.Controllers
         }
         public IActionResult Index(int page = 1)
         {
-            Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
+            Constants.ReturnPathToCurrentPage = string.Intern($"~/home/index?page={page}");
             productsStorage.ResetSearchWorkLocations();
             int pageSize = 4;
             var сatalog = productsStorage.GetAllProducts()
+                                         .UserSortingProducts(Constants.UserSortingProductsValue)
                                          .Skip((page - 1) * pageSize)
                                          .Take(pageSize)
-                                         .ToList()
-                                         .UserSortingProducts(Constants.UserSortingProductsValue);
+                                         .ToList();
             var pageInfo = new PageInfo
             {
                 PageNumber = page,
@@ -53,10 +53,10 @@ namespace OnlineShopWebApp.Controllers
             var minCost = productsStorage.SearchMinCost;
             var maxCost = productsStorage.SearchMaxCost;
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
+                                                  .UserSortingProducts(Constants.UserSortingProductsValue)
                                                   .Skip((page - 1) * pageSize)
                                                   .Take(pageSize)
-                                                  .ToList()
-                                                  .UserSortingProducts(Constants.UserSortingProductsValue);
+                                                  .ToList();
             var pageInfo = new PageInfo
             {
                 PageNumber = page,
@@ -89,10 +89,10 @@ namespace OnlineShopWebApp.Controllers
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
             int pageSize = 4;
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
+                                                  .UserSortingProducts(Constants.UserSortingProductsValue)
                                                   .Skip((page - 1) * pageSize)
                                                   .Take(pageSize)
-                                                  .ToList()
-                                                  .UserSortingProducts(Constants.UserSortingProductsValue);
+                                                  .ToList();
             var pageInfo = new PageInfo
             {
                 PageNumber = page,
