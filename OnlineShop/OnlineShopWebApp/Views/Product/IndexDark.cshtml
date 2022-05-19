@@ -9,10 +9,7 @@
         <div class="card-body" style="text-align: center">
             <p>
                 <img class="card-img-top box" src=@Model.ImagePath height="300" />
-            </p>
-            <div style="padding-bottom: 10px">
-                <a class="btn btn-primary btn-primary-glow-dark" href="javascript: history.length > 1 ? history.go(-1) : null"><i class="bi bi-arrow-left-short"> Назад</i></a>
-            </div>
+            </p><br />
             <div style="margin-bottom: 10px">
                 @await Component.InvokeAsync("AddProductToComparisonFromProductPage", Model.Id)
                 @await Component.InvokeAsync("AddProductToCartFromProductPage", Model.Id)
