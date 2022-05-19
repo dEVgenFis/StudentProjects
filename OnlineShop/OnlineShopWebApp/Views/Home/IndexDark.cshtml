@@ -59,23 +59,20 @@
         <div class="col-9">
             <div class="row justify-content-center" style="min-height: 140px">
                 <button class="col-2 offset-10 btn btn-primary btn-primary-glow-dark btn-sm dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Сортировать по
-                </button>
+                Сортировать по</button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px">
                     <a class="dropdown-item"
                        asp-area=""
                        asp-controller="Home"
                        asp-action="Sorting"
                        asp-route-sortingValue="1">
-                        <small>Возрастанию цены</small>
-                    </a>
+                    <small>Возрастанию цены</small></a>
                     <a class="dropdown-item"
                        asp-area=""
                        asp-controller="Home"
                        asp-action="Sorting"
                        asp-route-sortingValue="-1">
-                        <small>Убыванию цены</small>
-                    </a>
+                    <small>Убыванию цены</small></a>
                 </div>
                 <div class="col-4 offset-8 text-right glow-font-dark">
                     <small>@ViewBag.SortingProductsValueView</small>
@@ -90,6 +87,7 @@
             else
             {
                 <div class="row justify-content-center">
+                    <span class="col-1"></span>
                     @foreach (var product in Model.Products)
                     {
                         <div class="col-2 card shadow" style="text-align: center; border: 1px solid; padding: 0px; margin: 5px">
@@ -114,7 +112,7 @@
                         </div>
                     }
                 </div><br />
-                <div class="btn-group-sm text-sm-center">
+                <div class="col-11 offset-1 btn-group-sm text-sm-center">
                     @Html.PageLinks(Model.PageInfo, pageNumber => Url.Action("Index", new { page = pageNumber }))
                 </div>
             }

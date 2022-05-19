@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
 using System;
+using System.Linq;
 
 namespace OnlineShopWebApp.Areas.Controllers
 {
@@ -14,51 +15,105 @@ namespace OnlineShopWebApp.Areas.Controllers
             this.productsStorage = productsStorage;
             this.locationsStorage = locationsStorage;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/index");
+            Constants.ReturnPathToCurrentPage = string.Intern($"~/admin/products/index?page={page}");
             productsStorage.ResetAdminSearchWord();
+            int pageSize = 5;
             var сatalog = productsStorage.GetAllProducts()
-                                         .AdminSortingProducts(Constants.AdminSortingProductsValue);
+                                         .AdminSortingProducts(Constants.AdminSortingProductsValue)
+                                         .Skip((page - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToList();
+            var pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = productsStorage.GetAllProducts().Count()
+            };
+            var pnv = new PageNumberView
+            {
+                Products = сatalog,
+                PageInfo = pageInfo
+            };
             ViewBag.SearchWord = productsStorage.AdminSearchWord;
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
+            ViewBag.Catalog = productsStorage.GetAllProducts()
+                                             .AdminSortingProducts(Constants.AdminSortingProductsValue)
+                                             .ToList();
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
             if (Constants.Theme.Equals(Theme.Light))
             {
-                return View(сatalog);
+                return View(pnv);
             }
-            return View("IndexDark", сatalog);
+            return View("IndexDark", pnv);
         }
-        public IActionResult Search()
+        public IActionResult Search(int page = 1)
         {
-            Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/search");
+            Constants.ReturnPathToCurrentPage = string.Intern($"~/admin/products/search?page={page}");
+            int pageSize = 5;
             var searchWord = productsStorage.AdminSearchWord;
             var сatalog = productsStorage.SearchProductByName(searchWord)
-                                         .AdminSortingProducts(Constants.AdminSortingProductsValue);
+                                         .AdminSortingProducts(Constants.AdminSortingProductsValue)
+                                         .Skip((page - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToList();
+            var pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = productsStorage.SearchProductByName(searchWord).Count()
+            };
+            var pnv = new PageNumberView
+            {
+                Products = сatalog,
+                PageInfo = pageInfo
+            };
             ViewBag.SearchWord = searchWord;
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
+            ViewBag.Catalog = productsStorage.SearchProductByName(searchWord)
+                                             .AdminSortingProducts(Constants.AdminSortingProductsValue)
+                                             .ToList();
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
             if (Constants.Theme.Equals(Theme.Light))
             {
-                return View("Index", сatalog);
+                return View("Index", pnv);
             }
-            return View("IndexDark", сatalog);
+            return View("IndexDark", pnv);
         }
 
         [HttpPost]
-        public IActionResult Search(string searchWord)
+        public IActionResult Search(string searchWord, int page = 1)
         {
-            Constants.ReturnPathToCurrentPage = string.Intern("~/admin/products/search");
+            Constants.ReturnPathToCurrentPage = string.Intern($"~/admin/products/search?page={page}");
+            int pageSize = 5;
             var сatalog = productsStorage.SearchProductByName(searchWord)
-                                         .AdminSortingProducts(Constants.AdminSortingProductsValue);
+                                         .AdminSortingProducts(Constants.AdminSortingProductsValue)
+                                         .Skip((page - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToList();
+            var pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = productsStorage.SearchProductByName(searchWord).Count()
+            };
+            var pnv = new PageNumberView
+            {
+                Products = сatalog,
+                PageInfo = pageInfo
+            };
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.SortingProductsValueView = Constants.AdminSortingProductsValueView;
+            ViewBag.Catalog = productsStorage.SearchProductByName(searchWord)
+                                             .AdminSortingProducts(Constants.AdminSortingProductsValue)
+                                             .ToList();
             ViewBag.Path = Constants.ReturnPathToCurrentPage;
             if (Constants.Theme.Equals(Theme.Light))
             {
-                return View("Index", сatalog);
+                return View("Index", pnv);
             }
-            return View("IndexDark", сatalog);
+            return View("IndexDark", pnv);
         }
 
         public IActionResult Add()
