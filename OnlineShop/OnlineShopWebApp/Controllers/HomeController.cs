@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShopWebApp.Models;
+using System.Linq;
 
 namespace OnlineShopWebApp.Controllers
 {
@@ -12,31 +13,61 @@ namespace OnlineShopWebApp.Controllers
             this.productsStorage = productsStorage;
             this.locationsStorage = locationsStorage;
         }
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/index");
             productsStorage.ResetSearchWorkLocations();
+            int pageSize = 4;
             var сatalog = productsStorage.GetAllProducts()
+                                         .Skip((page - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToList()
                                          .UserSortingProducts(Constants.UserSortingProductsValue);
+            var pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = productsStorage.GetAllProducts().Count()
+            };
+            var pnv = new PageNumberView
+            {
+                Products = сatalog,
+                PageInfo = pageInfo
+            };
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.MinCost = productsStorage.MinCost;
             ViewBag.MaxCost = productsStorage.MaxCost;
             ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
             if (Constants.Theme.Equals(Theme.Light))
             {
-                return View(сatalog);
+                return View(pnv);
             }
-            return View("IndexDark", сatalog);
+            return View("IndexDark", pnv);
         }
-        public IActionResult Filtering()
+        public IActionResult Filtering(int page = 1)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
+            int pageSize = 4;
             var searchWord = productsStorage.UserSearchWord;
             var locations = productsStorage.SearchWorkLocations;
             var minCost = productsStorage.SearchMinCost;
             var maxCost = productsStorage.SearchMaxCost;
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
+                                                  .Skip((page - 1) * pageSize)
+                                                  .Take(pageSize)
+                                                  .ToList()
                                                   .UserSortingProducts(Constants.UserSortingProductsValue);
+            var pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).Count()
+            };
+            var pnv = new PageNumberView
+            {
+                Products = filteringCatalog,
+                PageInfo = pageInfo
+            };
             ViewBag.SearchWord = searchWord;
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -47,17 +78,32 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
             if (Constants.Theme.Equals(Theme.Light))
             {
-                return View(filteringCatalog);
+                return View(pnv);
             }
-            return View("FilteringDark", filteringCatalog);
+            return View("FilteringDark", pnv);
         }
 
         [HttpPost]
-        public IActionResult Filtering(string searchWord, string[] locations, decimal minCost, decimal maxCost)
+        public IActionResult Filtering(string searchWord, string[] locations, decimal minCost, decimal maxCost, int page = 1)
         {
             Constants.ReturnPathToCurrentPage = string.Intern("~/home/filtering");
+            int pageSize = 4;
             var filteringCatalog = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost)
+                                                  .Skip((page - 1) * pageSize)
+                                                  .Take(pageSize)
+                                                  .ToList()
                                                   .UserSortingProducts(Constants.UserSortingProductsValue);
+            var pageInfo = new PageInfo
+            {
+                PageNumber = page,
+                PageSize = pageSize,
+                TotalItems = productsStorage.FilteringProducts(searchWord, locations, minCost, maxCost).Count()
+            };
+            var pnv = new PageNumberView
+            {
+                Products = filteringCatalog,
+                PageInfo = pageInfo
+            };
             ViewBag.SearchWord = searchWord?.Trim();
             ViewBag.AllWorkLocations = locationsStorage.GetAllWorkLocations();
             ViewBag.FilteredLocations = productsStorage.SearchWorkLocations;
@@ -68,9 +114,9 @@ namespace OnlineShopWebApp.Controllers
             ViewBag.SortingProductsValueView = Constants.UserSortingProductsValueView;
             if (Constants.Theme.Equals(Theme.Light))
             {
-                return View(filteringCatalog);
+                return View(pnv);
             }
-            return View("FilteringDark", filteringCatalog);
+            return View("FilteringDark", pnv);
         }
 
         public IActionResult RemoveSearchWord()
